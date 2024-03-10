@@ -1,0 +1,19 @@
+body {
+  min-height: 100vh;
+  color: white;
+  background: black;
+  font-family: Inter, sans-serif;
+  /* line-height: 1.6; */
+  /* font-family:
+    Monaspace,
+    -apple-system,
+    BlinkMacSystemFont,
+    Roboto,
+    Oxygen,
+    Ubuntu,
+    Cantarell,
+    sans-serif;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale; */
+}
