@@ -2,5 +2,8 @@
 
 #app {
   margin: 0;
-  font-weight: normal;
+  background-color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
