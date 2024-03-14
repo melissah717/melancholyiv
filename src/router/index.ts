@@ -1,21 +1,36 @@
-import { createRouter, createWebHashHistory } from 'vue-router'
+import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
 
+const routes = [
+  {
+    path: '/',
+    name: 'Home',
+    component: HomeView
+  },
+  {
+    path: '/about',
+    name: 'About',
+    component: () => import('@/views/AboutView.vue')
+  }
+]
+
 const router = createRouter({
-  history: createWebHashHistory(),
-  routes: [
-    {
-      path: '/',
-      component: HomeView
-    },
-  ],
+  history: createWebHistory(),
+  routes,
   scrollBehavior(to, from, savedPosition) {
+    console.log(savedPosition);
     if (savedPosition) {
       return savedPosition;
-    } else {
-      return { top: 0 };
     }
+    if (to.hash) {
+      // Scroll to the element with the given hash
+      const element = document.querySelector(to.hash);
+      if (element) {
+        return { el: element };
+      }
+    }
+    return { left: 0, top: 0 };
   }
-})
+});
 
 export default router
