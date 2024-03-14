@@ -3,7 +3,7 @@
 </script>
 
 <template>
-    <nav>
+    <nav class="navbar">
         <div class="container">
             <router-link to="/"><a>Home</a></router-link>
             <router-link to="/about"><a>About</a></router-link>
@@ -13,16 +13,17 @@
 </template>
 
 <style scoped>
-.container {
-    background-color: #2d45cf;
-    opacity: 80%;
-    width: 30%;
+.navbar {
+    background-color: #938d9f;
+    width: auto;
     height: 1.5em;
     display: flex;
-    justify-content: space-evenly;
+    justify-content: space-between;
     align-items: center;
-    padding: 0.5em;
-    position: relative;
+    padding: 1em;
+    position: fixed;
+    top: 0;
+    left: 0;
 }
 
 a {
