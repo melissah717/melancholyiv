@@ -8,8 +8,8 @@ onMounted(() => {
   const tl = gsap.timeline();
 
   tl.to(".landing-paragraph", {
-    y: -80, // Reduced the distance for smoother transition
-    opacity: 0.7, // Starting opacity
+    y: -80,
+    opacity: 0.7,
     scrollTrigger: {
       trigger: ".trigger-2",
       start: "-1000% center",
@@ -29,7 +29,7 @@ onMounted(() => {
       pin: true,
       pinSpacing: false,
       scrub: 4,
-      ease: "power1.inOut"
+      // ease: "power1.inOut"
     },
     y: 1100,
   })
@@ -63,29 +63,46 @@ onMounted(() => {
 
   // Fade to dark mode when reaching the trigger
   tl.to("body, .container", {
-    backgroundColor: "#000",
+    backgroundColor: "#030C17",
     color: "#fff",
+    duration: 0.5,
     scrollTrigger: {
       trigger: ".examples-container",
       start: "35% 90%",
       end: "center center",
       scrub: true,
+      // markers: true
     },
   });
 
-  tl.to(".star-1", {
-    opacity: 1,
-    y: 500,
-    x: 500,
-    scale: 0.6,
-    scrollTrigger: {
-      trigger: ".examples-container",
-      markers: true,
-      start: "top center",
-      end: "100% bottom",
-      scrub: true
-    }
-  })
+  // tl.to(".star-1", {
+  //   opacity: 1,
+  //   y: 700,
+  //   x: 500,
+  //   scale: 0.001,
+  //   scrollTrigger: {
+  //     trigger: ".examples-container",
+  //     // markers: true,
+  //     start: "top center",
+  //     end: "100% bottom",
+  //     scrub: true
+  //   }
+  // })
+
+
+  // tl.from(".star-2", {
+  //   opacity: 1,
+  //   y: 700,
+  //   x: 500,
+  //   scale: 0.001,
+  //   scrollTrigger: {
+  //     trigger: ".star-2",
+  //     markers: true,
+  //     start: "top center",
+  //     end: "100% bottom",
+  //     scrub: true
+  //   }
+  // })
   tl.fromTo(".orange-flower", {
     x: -200
   }, {
@@ -117,6 +134,88 @@ onMounted(() => {
     rotation: 90,
     opacity: 0.5
   });
+
+
+  tl.to(".star-1", {
+    scale: 0.6,
+    y: 600,
+    scrollTrigger: {
+      trigger: ".star-1",
+      start: "top center",
+      end: "3000% bottom",
+      scrub: 2,
+      // markers: true,
+      pin: true
+    }
+  })
+
+  tl.to(".small-stars", {
+    scale: 0.5,
+    x: 60,
+    y: 300,
+    scrollTrigger: {
+      trigger: ".small-stars",
+      start: "top center",
+      end: "bottom bottom",
+      scrub: 1,
+      // markers: true,
+      pin: true,
+      pinSpacing: false
+
+    }
+  })
+
+  tl.to(".star-2", {
+    scale: 0.4,
+    x: -700,
+    y: 200,
+    scollTrigger: {
+      trigger: ".star-3",
+      start: "top center",
+      end: "bottom bottom",
+      scrub: 1,
+      // markers: true,
+    },
+  })
+
+
+  tl.to(".star-3", {
+    scale: 0.5,
+    y: -600,
+    x: 300,
+    opacity: 0.01,
+    scrollTrigger: {
+      trigger: ".big-star-container",
+      scrub: 2,
+      start: "top center",
+      end: "-200% center",
+      pin: true
+    }
+  })
+
+  tl.to(".parallax-1", {
+    y: -1200,
+    opacity: 0.2,
+    scrollTrigger: {
+      trigger: ".star-3",
+      scrub: true,
+    }
+  })
+
+  tl.to(".parallax-2", {
+    y: -3000,
+    opacity: 0.8,
+    scale: 1,
+    scrollTrigger: {
+      trigger: ".parallax-middle",
+      scrub: 3,
+      pin: true,
+      markers: true,
+      start: "-100% 30%",
+      end: "center center"
+    }
+  })
+
 });
 const lenis = new Lenis()
 
@@ -146,30 +245,50 @@ requestAnimationFrame(raf)
 
       <div class="spacer"></div>
       <div class="trigger-2"></div>
-      <!-- <span class="landing-paragraph">some optional span text here</span> -->
       <div class="landing-paragraph-container">
         <p class="landing-paragraph">
-          This is a paragraph about melissa. I'll try to make it as short and sweet as possible because
-          she likes to stay incognito. Hopefully one day she will die in relative obscurity without spawning
-          any selfish brats to replace herself. I'm kidding though this is just some filler for some text I haven't
-          thought of yet.
+          Hi, I'm Melissa. I'm a software engineer who is always learning what I don't know. These days, I'm
+          located in the San Francisco Bay Area. What else do people say here? They like solving problems? Well,
+          I guess I do too. This website was a big problem headache for a few weeks. On top of fullstack development,
+          I think human computer interaction and neural networks are pretty neat too.
         </p>
       </div>
       <div class="trigger-3"></div>
       <div class="home-container" id="home-container">
         <div class="spacer"></div>
 
-        <div class="right">
+        <div class="darkness-trigger"></div>
+        <div class="spacer"></div>
+
+
+        <div class="star-container">
           <div class="star-1"></div>
-          <div class="examples-paragraph">TRIGGER FOR DARKNESS</div>
           <div class="trigger"></div>
+          <div class="star-2"></div>
+
+          <div class="small-stars">
+            <div class="star-sm1"></div>
+            <div class="star-sm2"></div>
+            <div class="star-sm3"></div>
+          </div>
         </div>
+        <div class="big-star-container">
+          <div class="star-3"></div>
+        </div>
+
+      </div>
+      <div class="spacer"></div>
+
+      <div class="parallax-middle">
+        <img src="../assets/layer1.png" class="parallax-1" />
+
       </div>
 
-      <div class="star-2"></div>
-      <div class="about-container" id="about-container">
-
+      <div class="parallax-top">
+        <img src="../assets/city_lights2.png" class="parallax-2" />
       </div>
+      <div class="spacer-black">spacer here</div>
+
 
 
       <!-- <div class="examples-container" id="examples-container">
@@ -185,22 +304,94 @@ requestAnimationFrame(raf)
 .star-1 {
   height: 7px;
   width: 7px;
-  background-color: rgba(255, 252, 217, 0.99);
-  -webkit-box-shadow: 0px 0px 59px 60px rgba(255, 252, 217, 0.99);
-  -moz-box-shadow: 0px 0px 59px 60px rgba(255, 252, 217, 0.99);
-  box-shadow: 0px 0px 59px 74px rgba(255, 252, 217, 0.99);
-  opacity: 0
+  border-radius: 100%;
+  /* background-color: #EED098; */
+  background-color: #EED098;
+  -webkit-box-shadow: 0px 0px 59px 30px #EED098;
+  -moz-box-shadow: 0px 0px 59px 30px #EED098;
+  box-shadow: 0px 0px 59px 30px #EED098;
+  /* opacity: 0 */
 }
 
 .star-2 {
+  height: 70px;
+  width: 70px;
+  border-radius: 100%;
+  margin-top: 30vh;
+  border-color: #EED098;
+  background-color: #EED098;
+  -webkit-box-shadow: 0px 0px 59px 30px #EED098;
+  -moz-box-shadow: 0px 0px 59px 30px #EED098;
+  box-shadow: 0px 0px 59px 30px #EED098;
+  position: absolute;
+  right: 0;
+  /* opacity: 0 */
+}
+
+.star-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.small-stars {
+  margin-top: 10vh;
+}
+
+.star-sm1,
+.star-sm2,
+.star-sm3 {
   height: 7px;
   width: 7px;
-  z-index: 999;
-  background-color: rgba(255, 252, 217, 0.99);
-  -webkit-box-shadow: 0px 0px 59px 60px rgba(255, 252, 217, 0.99);
-  -moz-box-shadow: 0px 0px 59px 60px rgba(255, 252, 217, 0.99);
-  box-shadow: 0px 0px 59px 74px rgba(255, 252, 217, 0.99);
-  opacity: 0
+  border-radius: 100%;
+  background-color: #EED098;
+  -webkit-box-shadow: 0px 0px 59px 30px #EED098;
+  -moz-box-shadow: 0px 0px 59px 30px #EED098;
+  box-shadow: 0px 0px 59px 30px #EED098;
+  /* opacity: 0 */
+}
+
+.star-sm1 {
+  margin-top: 20vh;
+  margin-left: 33vw;
+}
+
+.star-sm2 {
+  justify-self: center;
+  margin-top: 20vh;
+  margin-left: 10vw;
+}
+
+.star-sm3 {
+  /* background-color: rgb(88, 54, 60); */
+  /* margin-right: 30vw; */
+  margin-left: 20vw;
+  margin-top: 10vh;
+}
+
+
+.big-star-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.star-3 {
+  height: 100px;
+  width: 100px;
+  border-radius: 99%;
+  margin-top: 90vh;
+  margin-right: 20vw;
+  border-color: #EED098;
+  background-color: #EED098;
+  -webkit-box-shadow: 0px 0px 59px 100px #EED098;
+  -moz-box-shadow: 0px 0px 59px 100px #EED098;
+  box-shadow: 0px 0px 59px 100px #EED098;
+  /* opacity: 0 */
+}
+
+.right {
+  display: flex;
+  justify-content: space-between;
 }
 
 
@@ -215,7 +406,7 @@ requestAnimationFrame(raf)
 }
 
 .square-1 {
-  height: 40rem;
+  height: 30rem;
   width: 80rem;
   background-color: rgb(255, 128, 128);
   /* border: 3px solid black; */
@@ -233,6 +424,9 @@ requestAnimationFrame(raf)
   height: 45vh;
 }
 
+.parallax-middle {
+  height: 100vh
+}
 
 .trigger-1,
 .trigger-2,
@@ -242,10 +436,17 @@ requestAnimationFrame(raf)
   opacity: 0
 }
 
+.spacer-black {
+  height: 45vh;
+  background-color: black;
+  color: white;
+  margin-top: -100px;
+}
+
+
 .orange-flower {
   height: 200px;
   width: 200px;
-  /* position: relative; */
   z-index: 999;
 }
 
@@ -259,37 +460,6 @@ img {
   /* background-color: pink; */
 }
 
-/*MOON*/
-
-.header {
-  background-image: "../assets/watercolor.png";
-  opacity: 0.5
-}
-
-.circle-1 {
-  height: 100px;
-  width: 100px;
-  border: 1px solid #938d9f;
-  border-radius: 100%;
-  align-self: flex-start;
-  margin: 0.1rem;
-}
-
-.circle-2 {
-  height: 135px;
-  width: 40px;
-  border: 1px solid rgba(88, 0, 0, 0.774);
-  border-radius: 100%;
-  align-self: flex-start;
-  margin-left: 3rem;
-}
-
-.star-5 {
-  height: 100px;
-  width: 100px;
-  left: 0;
-  top: 0;
-}
 
 h2 {
   font-size: 3rem;
@@ -301,11 +471,10 @@ h2 {
   letter-spacing: -2.3rem;
   padding-left: 1rem;
   width: 100%;
+  color: black;
 }
 
 .landing-paragraph {
-
-  opacity: 0.2;
   font-size: 1em;
 }
 
@@ -328,5 +497,15 @@ h2 {
 
 span {
   font-family: "Cedarville Cursive", cursive;
+}
+
+
+.parallax-1 {
+  width: 100%;
+  z-index: -999;
+}
+
+.parallax-2 {
+  width: 100%
 }
 </style>
