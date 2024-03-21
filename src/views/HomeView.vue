@@ -1,19 +1,23 @@
 <script>
-import gsap from 'gsap';
-import { onMounted } from "vue"
-import Flower from "../components/Flower.vue" 
+import { onMounted, ref } from "vue"
 import CursorFollow from "../components/CursorFollow.vue"
+import ShowcaseSection from "../components/ShowcaseSection.vue"
 import { animateElements } from "../animations"
 
 export default {
   setup() {
+    const verticalContainer = ref(null);
     onMounted(() => {
-      animateElements()
-    })
+      animateElements();
+    });
+
+    return {
+      verticalContainer,
+    };
   },
   components: {
-    Flower,
-    CursorFollow
+    CursorFollow,
+    ShowcaseSection
   },
 };
 </script>
@@ -21,65 +25,46 @@ export default {
 <template>
   <main>
     <CursorFollow />
+    <!-- <CursorEffect /> -->
     <div class="container">
       <div class="header">
         <div class="landing-banner">
-          <h1>          Melissa</h1>
-
+          <h1>Melissa</h1>
         </div>
       </div>
-
-      <div class="spacer">        </div>
-      <div class="trigger-2"></div>
       <div class="spacer"></div>
-      <div class="landing-paragraph-container">
-        <!-- <Flower /> -->
-        <p class="landing-paragraph">
-          Hey there! I’m Sassy Developer Senpai, a woman who slays code like a boss. Armed with my bachelor’s in computer science, I’m the queen of algorithms and the empress of debugging. When I’m not conquering the tech world, you’ll find me strutting down the streets, capturing life’s moments through my lens. And let’s not forget my culinary prowess – I whip up code and gourmet meals with equal finesse. So, buckle up, buttercup, because this sassy developer is here to rock your world! 
 
-        <br />
-As a code-slinging software developer with a bachelor's in computer science, I craft digital masterpieces by day and conquer pixelated realms by night. My walks are not just a breath of fresh air—they're a quest for the perfect shot, each picture a trophy in my visual collection. In the kitchen, I'm a culinary wizard, whipping up dishes so good, they'll make your taste buds tap dance. And when it comes to gaming? I'm the undefeated champion, communicating victory and defeat with my arsenal of frog emotes. So, if you're looking for someone who's equal parts tech-savvy and life-loving, you've just hit the jackpot.
-</p>      
-<br />
-      <p class="landing-paragraph"></p>
+      <div class="landing-paragraph-container">
+        <div class="spacer"></div>
+        <p class="landing-paragraph">
+          I'm a full stack developer based in San Francisco. My strengths are efficiency, communication, and flexibility. When I'm not coding, you'll probably find me at the home improvement store trying to DIWHY something.
+        </p>
       </div>
 
       <div class="spacer"></div>
-
-
-
 
       <div class="home-container">
-      <div class="trigger-3"></div>
-      <div class="spacer"></div>
-      <div class="spacer"></div>
-      <div class="home-container" id="home-container">
-        
-        <div class="sassy">
-  <h1 class="sassy-heading">The 2000s called.</h1>
-  <div class="sassy-marquee-wrapper">
-    <marquee class="sassy-marquee">(They want their marquees back)</marquee>
-  </div>
-</div>
 
-<div class="headline-2">Your content should be as</div>
-        <div class="video-background">
-          <div class="video-foreground">
-            <iframe src="https://player.vimeo.com/video/925027042?background=1&autoplay=1&loop=1&byline=0&title=0"
-                    frameborder="0"
-                    allowfullscreen
-                    allow="autoplay; encrypted-media"
-                    title="Vimeo video">
-            </iframe>
-        </div>
-      </div>
-      <div class="headline-3">as you are</div>
+
         <div class="darkness-trigger"></div>
-        <div class="spacer"></div>
       </div>
+      
     </div>
-  </div>
-  </main>
+    
+    <ShowcaseSection />
+
+    <div class="sassy">
+          <h1 class="sassy-heading">The 2000's called.</h1>
+          <div class="sassy-heading-underline"></div> 
+          <div class="sassy-marquee">
+            <p>(They want their marquees back)</p>
+          </div>
+        </div>
+<div class="footer-trigger"></div>
+<div class="footer-container">
+  LOL
+</div>
+</main>
 </template>
 
 
@@ -92,17 +77,10 @@ As a code-slinging software developer with a bachelor's in computer science, I c
   flex-direction: column;
   width: 100vw;
   color: rgb(10, 3, 3);
-  height: 900vh;
-}
+  height: 300vh;
+  will-change: transform;
+  z-index: 100;
 
-
-
-.container {
-  display: flex;
-  flex-direction: column;
-  width: 100vw;
-  color: rgb(10, 3, 3);
-  height: auto;
 }
 
 .header {
@@ -121,10 +99,10 @@ As a code-slinging software developer with a bachelor's in computer science, I c
 }
 
 .landing-paragraph {
-  font-size: 2em;
+  font-size: 4em;
   width: 50%;
   letter-spacing: -1.5px;
-  font-weight: 700;
+  font-weight: 600;
   text-align: justify;
   color: #c45b94
 }
@@ -145,7 +123,7 @@ As a code-slinging software developer with a bachelor's in computer science, I c
 }
 
 .home-container {
-  height: 150vh;
+  height: 250vh;
   display: flex;
   width: 100%;
   flex-direction: column;
@@ -154,7 +132,7 @@ As a code-slinging software developer with a bachelor's in computer science, I c
 }
 
 .sassy {
-  width: 80%;
+  width: 70%;
   align-items: center;
   text-align: center;
   font-size: 2em;
@@ -162,43 +140,69 @@ As a code-slinging software developer with a bachelor's in computer science, I c
 }
 
 .sassy-heading {
-  font-size: 10rem
-}
-.sassy-heading,
-.sassy-marquee {
-  transform: translateY(100%); /* Initially move the elements out of view */
+  font-size: 10rem;
+  margin: 0
 }
 
-.sassy-marquee-wrapper {
-  overflow: hidden; /* Ensures that the marquee content is clipped */
+.sassy-marquee {
+  width: 100%;
+  animation: marquee 10s linear infinite; /* Adjust the duration (10s) to control the speed */
+}
+
+@keyframes marquee {
+  0% { transform: translateX(100%); }
+  100% { transform: translateX(-100%); }
 }
 
 .video-background {
   position: relative;
   width: 100%;
-  height: 50vh;
+  height: 100vh;
   overflow: hidden;
 }
 
 .video-foreground {
   position: absolute;
-
   width: 100%;
   height: 100%;
 }
 
 .video-foreground iframe {
-  width: 100%;
+  width: 70%;
   height: 200%;
-  /* transform: translateY(50%) */
+}
+
+.dynamic-text {
+  width: 100%;
+  position: absolute;
+}
+
+.sassy-heading-underline {
+  width: 0; /* Initially set the width to 0 */
+  height: 2px; /* Set the height of the underline */
+  background-color: #eeeeee; /* Set the color of the underline */
 }
 
 
 
-.header {
-  display: flex;
+
+.footer-container {
+  height: 75vh;
+  background-color:#000000;
+  width: 100vw;
 }
-.parallax-middle-picture {
+.footer {
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  padding: 6px 10px 10px 10px;
+  border-bottom-right-radius: 26px;
+  z-index: 100;
+  background-color:#4C51BF;
+  will-change: transform;
+  height: 20vh;
+}
+/* .parallax-middle-picture {
   width: 100%;
 }
 
@@ -215,9 +219,9 @@ As a code-slinging software developer with a bachelor's in computer science, I c
 position: absolute;
   right: 450;
   top: 0;
-  /* z-index: 100; */
+  /* z-index: 100; 
   width: 20%;
-}
+} */
 
 /* 
 .star-1 {
