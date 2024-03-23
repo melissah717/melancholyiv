@@ -27,7 +27,7 @@ const animateBoxes = (rotationDirection) => {
 // Setup ScrollTrigger to activate animation on scroll
 const setupScrollTrigger = () => {
   ScrollTrigger.create({
-    trigger: '.landing-paragraph',
+    trigger: '.box-works',
     start: 'top center', // Adjust as needed
     end: 'bottom center',
     markers: true, // Set to true for debugging
@@ -53,32 +53,31 @@ onMounted(() => {
 </script>
 
 <template>
-  <div class="flower-container">
+  <div class="container">
     <div class="circle">
-      <img v-for="index in 9" :key="index" :src="petal" class="box" ref="boxes" alt="petal" />
+      <img v-for="index in 6" :key="index" :src="petal" class="box" ref="boxes" alt="petal" />
     </div>
   </div>
 </template>
 
 <style scoped>
-.flower-container {
-  position: relative;
-  width: 400px;
-  height: 400px;
+.container {
+bottom: 0;
+left: 0;
+overflow: hidden;
 }
 
 .circle {
-  position: absolute;
-  width: 50px;
-  height: 50px;
-  top: 50%;
-  left: 50%;
+  bottom: 0;
+  left: 0;
   border: 1px solid black;
 }
 
 .box {
-  width: 50px;
-  height: 50px;
+  width: 200px;
+  height: 200px;
   position: absolute;
+  background: none;
+  border: none
 }
 </style>
