@@ -77,7 +77,7 @@ overflow: hidden;
   width: 200px;
   height: 200px;
   position: absolute;
-  background: white;
+  background: none;
   border: none
 }
 </style>
