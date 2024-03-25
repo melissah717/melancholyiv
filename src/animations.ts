@@ -35,8 +35,10 @@ export function animateElements() {
       }
     })
 
+
+
     tl.to('.landing-banner', {
-      y: 700,
+      y: 400,
       scrollTrigger: {
         trigger: '.landing-paragraph',
         start: 'top bottom',
@@ -44,12 +46,7 @@ export function animateElements() {
         scrub: 2
       }
     })
-
   })
+
 }
 
-gsap.set('.footer-container', { yPercent: -50 })
-
-const uncover = gsap.timeline({ paused: true })
-
-uncover.to('.footer.container', { yPercent: 0, ease: 'none' })

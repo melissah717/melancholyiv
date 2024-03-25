@@ -1,16 +1,20 @@
 <script>
-import { onMounted, ref } from "vue"
-import CursorFollow from "../components/CursorFollow.vue"
-import ShowcaseSection from "../components/ShowcaseSection.vue"
-import { animateElements } from "../animations"
-import Background1 from "../assets/marble_lineart.png"
-
+import { onMounted, ref } from "vue";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import CursorFollow from "../components/CursorFollow.vue";
+import ShowcaseSection from "../components/ShowcaseSection.vue";
+import { animateElements } from "../animations";
+import Background1 from "../assets/marble_lineart.png";
+import FooterSection from "../components/FooterSection.vue";
 export default {
   setup() {
     const verticalContainer = ref(null);
     onMounted(() => {
       animateElements();
     });
+
+    gsap.registerPlugin(ScrollTrigger)
 
     return {
       verticalContainer,
@@ -20,6 +24,7 @@ export default {
   components: {
     CursorFollow,
     ShowcaseSection,
+    FooterSection
   },
 };
 </script>
@@ -31,47 +36,34 @@ export default {
 
       <div class="header">
         <div class="landing-banner">
-          Hi, I'm Melissa
-          <!-- Melissa -->
+          Hi  I'm Melissa!
         </div>
       </div>
 
-      <div class="spacer"></div>
-
       <div class="landing-paragraph-container">
-
         <p class="landing-paragraph">
-          I'm a full stack developer based in San Francisco. My strengths are efficiency, communication, and flexibility. Building something great is both a dynamic and cummulative process. When I'm not coding, you'll probably find me around the house or store trying to DIWHY something.
-
+          I'm a full stack developer based in San Francisco. My strengths are efficiency, communication, and flexibility. Building something great is both a dynamic and cummulative process that requires iteration and reflection. When I'm not coding, you'll probably find me around the house or store trying to DIWHY something.
         </p>
       </div>
       
     </div>
-    
+
     <ShowcaseSection />
 
-
-<div class="footer-trigger"></div>
-<div class="footer-container">
-  LOL
-</div>
 </main>
+<FooterSection />
 </template>
 
 
 
 
 <style scoped>
-
 .container {
   display: flex;
   flex-direction: column;
-  width: 100vw;
+  width: 100%;
   color: rgb(10, 3, 3);
-  height: 200vh;
-  will-change: transform;
-  z-index: 100;
-
+  height: 100vh;
 }
 
 .header {
@@ -81,21 +73,21 @@ export default {
 }
 
 .landing-banner {
-  font-size: 16rem;
-  font-weight: 800;
-  letter-spacing: -1.5rem;
+  font-size: 10rem;
+  font-weight: 700;
+  letter-spacing: -1rem;
   width: 100%;
   color: black;
   text-align: center;
 }
 
 .landing-paragraph {
-  font-size: 4em;
-  width: 70%;
+  font-size: 2em;
+  width: 40%;
   letter-spacing: -1.5px;
   font-weight: 600;
   text-align: justify;
-  color: #c45b94
+  color: #00886a;
 }
 
 .landing-paragraph-container {
@@ -120,45 +112,8 @@ export default {
   align-items: center;
 }
 
-.sassy {
-  width: 70%;
-  align-items: center;
-  text-align: center;
-  font-size: 2em;
-  overflow: hidden; /* Ensures that the curtain effect is applied */
-}
-
-.sassy-heading {
-  font-size: 10rem;
-  margin: 0
-}
 
 
-.sassy-heading-underline {
-  width: 0; /* Initially set the width to 0 */
-  height: 2px; /* Set the height of the underline */
-  background-color: #eeeeee; /* Set the color of the underline */
-}
-
-
-
-
-.footer-container {
-  height: 75vh;
-  background-color:#000000;
-  width: 100vw;
-}
-.footer {
-  position: fixed;
-  top: 0px;
-  left: 0px;
-  padding: 6px 10px 10px 10px;
-  border-bottom-right-radius: 26px;
-  z-index: 100;
-  background-color:#4C51BF;
-  will-change: transform;
-  height: 20vh;
-}
 
 img {
   height: 100%;
@@ -173,20 +128,5 @@ h2 {
   font-size: 3rem;
 }
 
-
-.landing-paragraph {
-  font-size: 1em;
-}
-
-.landing-paragraph-container {
-  font-size: 2rem;
-  margin-top: 1em;
-  font-weight: 700;
-  width: 50%;
-  letter-spacing: -1.5px;
-  text-align: justify;
-  align-self: center;
-  top: 0;
-}
 
 </style>

@@ -1,7 +1,14 @@
 <template>
   <div class="vertical-container" id="vertical-container">
     <div class="left-section">
-      <div class="box front-end">Front end</div>
+      <div class="box front-end">
+      <ul class="frontend-list">
+        <li class="list-item">TypeScript</li>
+        <li class="list-item">React</li>
+        <li class="list-item">Vue</li>
+        <li class="list-item">GSAP and JQuery</li>
+      </ul>
+    </div>
       <div class="box box-works-left">
         FE develpoment
       </div>
@@ -24,10 +31,9 @@
               Game Development
             </div>
             <div class="card-header-underline"></div>
-            <br />
-            // UML
-            <br />
-            // JAVA
+            <div class="list">
+              <p>UML // JAVA // GIT</p>
+            </div>
           </div>
         </div>
       </div>
@@ -40,35 +46,38 @@
               Guild Gaming
             </div>
             <div class="card-header-underline"></div>
-            <br />
-            // React
-            <br />
-            // Python
-            <br />
-            // Auth0
-            <br />
-            // MapboxGL
+            <div class="list">
+              <p>REACT // TYPESCRIPT // PYTHON // FLASK // OPENAPI // AUTH0 // MAPBOXGL</p>
+            </div>
           </div>
         </div>
       </div>
       <div class="box box-works-right">
-        <Flower />
+        Right side
       </div>
-      <div class="box back-end" @mouseover="showOverlay('backend box overlay')">Back end stuffs</div>
+      <div class="box back-end">
+        <ul class="backend-list">
+
+          <li class="list-item">Python</li>
+        <li class="list-item">Flask</li>
+        <li class="list-item">Auth0</li>
+        <li class="list-item">NextJS</li>
+        <li class="list-item">SQL and Pandas</li>
+        
+        </ul>
+
+      </div>
     </div>
   </div>
 </template>
 
 <script>
-import { onMounted } from "vue";
+import { onMounted, ref } from "vue";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import Flower from "../components/Flower.vue";
 export default {
-  components: {
-    Flower,
-  },
   setup() {
+    const headingWidths = ref([]);
 
     const debugging = () => {
       console.log("moused over");
@@ -76,6 +85,72 @@ export default {
 
     onMounted(() => {
       gsap.registerPlugin(ScrollTrigger);
+
+      // Wait for the next frame to ensure the DOM is updated
+      requestAnimationFrame(() => {
+        const cardHeaders = document.querySelectorAll('.card-header');
+        cardHeaders.forEach((cardHeader, index) => {
+          const width = cardHeader.getBoundingClientRect().width;
+          headingWidths.value[index] = width; // Store width for each header
+          const underline = cardHeader.nextElementSibling; // Get the next sibling element for the underline
+          gsap.to(underline, {
+            width: 0, // Start with zero width
+            duration: 1,
+            ease: 'power3.out',
+            scrollTrigger: {
+              trigger: cardHeader,
+              start: 'top center', // Adjust the start position
+              onEnter: () => {
+                gsap.to(underline, {
+                  width: headingWidths.value[index], // Animate to the stored width
+                  duration: 1,
+                  ease: 'power3.out'
+                });
+              },
+              onLeaveBack: () => {
+                gsap.to(underline, {
+                  width: 0, // Animate back to zero width
+                  duration: 1,
+                  ease: 'power3.out'
+                });
+              }
+            }
+          });
+        });
+      });
+
+      document.querySelectorAll('.frontend-list').forEach((item) => {
+        item.innerHTML = item.textContent.replace(/\S/g, "<span class='char'>$&</span>")
+        const chars = item.querySelectorAll('.char')
+        gsap.from(chars, {
+          duration: 1,
+          color: 'black',
+          stagger: 0.1,
+          scrollTrigger: {
+            trigger: item,
+            start: 'top bottom',
+            end: 'bottom center',
+            scrub: true
+          }
+        });
+      });
+
+      document.querySelectorAll('.backend-list').forEach((item) => {
+        item.innerHTML = item.textContent.replace(/\S/g, "<span class='char'>$&</span>")
+        const chars = item.querySelectorAll('.char')
+        gsap.from(chars, {
+          duration: 1,
+          color: 'black',
+          stagger: 0.1,
+          scrollTrigger: {
+            trigger: item,
+            start: 'top bottom',
+            end: 'bottom center',
+            scrub: true
+          }
+        });
+      });
+
       const verticalContainer = document.getElementById("vertical-container");
       const leftSection = verticalContainer.querySelector(".left-section");
       const rightSection = verticalContainer.querySelector(".right-section");
@@ -104,50 +179,26 @@ export default {
           snapTolerance: -1
         }
       })
-        .to(leftSection, {
-          y: window.innerHeight - leftSection.clientHeight
-        })
-        .to(
-          rightSection,
-          {
-            y: 0
-          },
-          0
-        );
+      .to(leftSection, {
+        y: window.innerHeight - leftSection.clientHeight
+      })
+      .to(
+        rightSection,
+        {
+          y: 0
+        },
+        0
+      );
     });
 
-    const animateUnderline = () => {
-      const cardHeader = document.querySelector('.card-header')
-      const headingWidth = cardHeader.getBoundingClientRect().width
-      gsap.to('.card-header-underline', {
-        width: headingWidth,
-        duration: 1,
-        ease: 'power3.out',
-        justifyContent: 'center'
-      })
-    }
-
-    const reverseUnderline = () => {
-      gsap.to('.card-header-underline', {
-        width: 0,
-        duration: 1,
-        ease: 'power3.out'
-      })
-    }
-
-    ScrollTrigger.create({
-      trigger: 'card-header',
-      start: 'top center',
-      onEnter: animateUnderline,
-      onLeaveBack: reverseUnderline
-    })
-
     return {
-      debugging
+      debugging,
+      headingWidths // Expose headingWidths for potential use in the template
     };
-  }
-};
+  },
+}
 </script>
+
 
 <style>
 .vertical-container {
@@ -182,7 +233,6 @@ export default {
   display: flex;
   justify-content: center;
   align-tracks: center;
-  background-color: #ffffff
 }
 
 
@@ -250,7 +300,7 @@ export default {
 }
 
 .card-header {
-  font-size: 6rem;
+  font-size: 5rem;
   font-weight: 600;
   text-align: left;
   text-transform: uppercase;
@@ -260,9 +310,37 @@ export default {
 .card-header-underline {
   width: 0;
   /* Initially set the width to 0 */
-  height: 2px;
+  height: 5px;
   /* Set the height of the underline */
   background-color: #eeeeee;
   /* Set the color of the underline */
 }
+
+.box-works-left {
+  background-color: yellow;
+}
+
+.box-works-right {
+  background-color: pink;
+}
+
+.list {
+  font-size: 0.5em;
+  text-align: justify;
+}
+
+.frontend-list  {
+  display: flex;
+  justify-content: center;
+  align-items: end;
+  font-size: 5rem;
+}
+
+.backend-list { 
+  font-size: 3rem;
+}
+.list-item {
+  list-style: none;
+}
+
 </style>
