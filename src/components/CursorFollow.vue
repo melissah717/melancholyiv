@@ -22,8 +22,8 @@ export default {
     x: e.clientX,
     y: e.clientY,
     duration: 0.5,
-    ease: "power1.out",
-    // delay: 0.1,
+    ease: "power3.out",
+    delay: 0.1,
   });
 
   const cursorTrail = document.createElement("div");
@@ -52,21 +52,11 @@ export default {
   position: fixed;
   top: 0;
   left: 0;
-  width: 30px;
-  height: 30px;
-  background-color: rgb(51, 14, 43);
+  width: 15px;
+  height: 15px;
+  background-color: #6d597a;
   border-radius: 50%;
-  z-index: 9999;
+  z-index: 999;
 }
 
-.cursor-trail {
-  position: fixed;
-  pointer-events: none;
-  z-index: 9998;
-  width: 10px;
-  height: 10px;
-  background-color: rgba(196, 48, 48, 0.5);
-  border-radius: 50%;
-  transition: width 0.3s, height 0.3s, opacity 0.3s;
-}
 </style>

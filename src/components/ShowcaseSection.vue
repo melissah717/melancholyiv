@@ -1,16 +1,9 @@
 <template>
   <div class="vertical-container" id="vertical-container">
     <div class="left-section">
-      <div class="box front-end">
-      <ul class="frontend-list">
-        <li class="list-item">TypeScript</li>
-        <li class="list-item">React</li>
-        <li class="list-item">Vue</li>
-        <li class="list-item">GSAP and JQuery</li>
-      </ul>
-    </div>
-      <div class="box box-works-left">
-        FE develpoment
+      <div class="box-works-left final">
+        <div class="letter m">m</div>
+        <div class="letter y">y</div>
       </div>
       <div class="box guild-gaming">
         <div class="card">
@@ -30,125 +23,101 @@
             <div class="card-header">
               Game Development
             </div>
-            <div class="card-header-underline"></div>
-            <div class="list">
-              <p>UML // JAVA // GIT</p>
+            <div class="tank" ref="tank">
+              <p>java</p>
+              <p>oop</p>
+              <p>uml</p>
+              <p>git</p>
+              <p>mvc</p>
             </div>
+            <div class="external-links">
+              <a class="ex-links" href="https://github.com/melissah717/Tank-Game.git">repository</a>
+              <a class="ex-links" href="https://www.youtube.com/watch?v=gMRex3wlUPo">demo</a>
+            </div>
+
           </div>
         </div>
       </div>
       <div class="box gg-info">
-        <div class="line"></div>
-        <div class="line"></div>
         <div class="info-card">
           <div class="text-card">
             <div class="card-header">
               Guild Gaming
             </div>
-            <div class="card-header-underline"></div>
-            <div class="list">
-              <p>REACT // TYPESCRIPT // PYTHON // FLASK // OPENAPI // AUTH0 // MAPBOXGL</p>
+            <div class="gg" ref="gg">
+              <p>react</p>
+              <p>typescript</p>
+              <p>flask</p>
+              <p>openAPI</p>
+              <p>auth0</p>
+            </div>
+            <div class="external-links">
+              <a class="ex-links" href="https://guildgaming.gg">https://guildgaming.gg</a>
+              <a class="ex-links" href="https://gist.github.com/melissah717/public">gists</a>
+
             </div>
           </div>
         </div>
       </div>
-      <div class="box box-works-right">
-        Right side
-      </div>
-      <div class="box back-end">
-        <ul class="backend-list">
-
-          <li class="list-item">Python</li>
-        <li class="list-item">Flask</li>
-        <li class="list-item">Auth0</li>
-        <li class="list-item">NextJS</li>
-        <li class="list-item">SQL and Pandas</li>
-        
-        </ul>
-
-      </div>
+      <div class="box-works-right final">
+        <div class="letter w">w</div>
+        <div class="letter o">o</div>
+        <div class="letter r">r</div>
+        <div class="letter k">k</div>
+      </div> 
     </div>
   </div>
 </template>
 
 <script>
-import { onMounted, ref } from "vue";
+import { onMounted } from "vue";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { Flip } from "gsap/Flip";
+
+gsap.registerPlugin(ScrollTrigger);
+gsap.registerPlugin(Flip);
+
 export default {
   setup() {
-    const headingWidths = ref([]);
-
-    const debugging = () => {
-      console.log("moused over");
-    };
-
     onMounted(() => {
-      gsap.registerPlugin(ScrollTrigger);
 
-      // Wait for the next frame to ensure the DOM is updated
-      requestAnimationFrame(() => {
-        const cardHeaders = document.querySelectorAll('.card-header');
-        cardHeaders.forEach((cardHeader, index) => {
-          const width = cardHeader.getBoundingClientRect().width;
-          headingWidths.value[index] = width; // Store width for each header
-          const underline = cardHeader.nextElementSibling; // Get the next sibling element for the underline
-          gsap.to(underline, {
-            width: 0, // Start with zero width
-            duration: 1,
-            ease: 'power3.out',
-            scrollTrigger: {
-              trigger: cardHeader,
-              start: 'top center', // Adjust the start position
-              onEnter: () => {
-                gsap.to(underline, {
-                  width: headingWidths.value[index], // Animate to the stored width
-                  duration: 1,
-                  ease: 'power3.out'
-                });
-              },
-              onLeaveBack: () => {
-                gsap.to(underline, {
-                  width: 0, // Animate back to zero width
-                  duration: 1,
-                  ease: 'power3.out'
-                });
-              }
-            }
-          });
-        });
+
+      let layouts = ["final","grid"]
+      let containerLeft = document.querySelector(".box-works-left")
+      console.log(containerLeft)
+      let curLayout = 0;
+      let containerRight = document.querySelector(".box-works-right")
+
+      function nextState() {
+      const state = Flip.getState(".letter", { props: "color,backgroundColor", simple: true }); // capture current state
+
+      containerLeft.classList.remove(layouts[curLayout]);
+      containerRight.classList.remove(layouts[curLayout]); 
+      curLayout = (curLayout + 1) % layouts.length;  
+      containerLeft.classList.add(layouts[curLayout]);   
+      containerRight.classList.add(layouts[curLayout]);   
+      Flip.from(state, { 
+        absolute: true,
+        stagger: 0.07,
+        duration: 0.5,
+        ease: "power2.inOut",
+        spin: curLayout === 0, 
+        onEnter: (elements, animation) => gsap.fromTo(elements, { opacity: 0 }, { opacity: 1, delay: animation.duration() - 0.1 }),
+        onLeave: elements => gsap.to(elements, { opacity: 0 })
       });
 
-      document.querySelectorAll('.frontend-list').forEach((item) => {
-        item.innerHTML = item.textContent.replace(/\S/g, "<span class='char'>$&</span>")
-        const chars = item.querySelectorAll('.char')
-        gsap.from(chars, {
-          duration: 1,
-          color: 'black',
-          stagger: 0.1,
-          scrollTrigger: {
-            trigger: item,
-            start: 'top bottom',
-            end: 'bottom center',
-            scrub: true
-          }
-        });
+      gsap.delayedCall(1.5, nextState);
+    }
+
+    gsap.delayedCall(1, nextState);
+
+      document.querySelectorAll('.frontend-list p').forEach((para) => {
+        animateText(para);
       });
 
-      document.querySelectorAll('.backend-list').forEach((item) => {
-        item.innerHTML = item.textContent.replace(/\S/g, "<span class='char'>$&</span>")
-        const chars = item.querySelectorAll('.char')
-        gsap.from(chars, {
-          duration: 1,
-          color: 'black',
-          stagger: 0.1,
-          scrollTrigger: {
-            trigger: item,
-            start: 'top bottom',
-            end: 'bottom center',
-            scrub: true
-          }
-        });
+      document.querySelectorAll('.backend-list p').forEach((para) => {
+        animateText(para, true);
       });
 
       const verticalContainer = document.getElementById("vertical-container");
@@ -156,7 +125,7 @@ export default {
       const rightSection = verticalContainer.querySelector(".right-section");
       const containers = gsap.utils.toArray(".left-section .box");
       const snapPoints = containers.map((_, i) => {
-        return i / (containers.length - 1);
+        return (i + 1) / containers.length;
       });
 
       gsap.set(rightSection, {
@@ -173,29 +142,41 @@ export default {
           end: "+=3000",
           pin: true,
           invalidateOnRefresh: true,
-          markers: true,
           scrub: true,
           snap: snapPoints,
-          snapTolerance: -1
+          snapTolerance: 0
         }
       })
-      .to(leftSection, {
-        y: window.innerHeight - leftSection.clientHeight
-      })
-      .to(
-        rightSection,
-        {
-          y: 0
-        },
-        0
-      );
+        .to(leftSection, {
+          y: window.innerHeight - leftSection.clientHeight
+        })
+        .to(
+          rightSection,
+          {
+            y: 0
+          },
+          0
+        );
     });
 
-    return {
-      debugging,
-      headingWidths // Expose headingWidths for potential use in the template
-    };
-  },
+    function animateText(element, reverse = false) {
+      element.innerHTML = element.textContent.replace(/\S/g, "<span class='char'>$&</span>");
+      const chars = element.querySelectorAll('.char');
+      gsap.from(chars, {
+        duration: 1,
+        color: 'black',
+        stagger: 0.1,
+        scrollTrigger: {
+          trigger: element,
+          start: reverse ? 'bottom center' : 'top bottom',
+          end: reverse ? 'top center' : 'bottom center',
+          scrub: true
+        }
+      });
+    }
+
+   
+  }
 }
 </script>
 
@@ -205,18 +186,32 @@ export default {
   width: 100%;
   height: 100vh;
   overflow: hidden;
-  display: flex
+  display: flex;
+  color: white;
 }
 
 .left-section,
 .right-section {
   width: 50%;
-  height: 400vh;
+  height: 300vh;
   overflow: hidden;
   display: flex;
   flex-direction: column;
 }
 
+.flip-container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.flip-item {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
 
 .left-section>div,
 .right-section>div {
@@ -227,12 +222,11 @@ export default {
   justify-content: center;
 }
 
-.box {
-  width: 100%;
-  height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-tracks: center;
+.my,
+.works {
+  font-size: 4rem;
+  font-weight: 800;
+  text-transform: uppercase;
 }
 
 
@@ -248,22 +242,20 @@ export default {
   opacity: 1;
   display: flex;
   flex-direction: column;
-  justify-content: space-around;
-  align-items: flex-end;
-
 }
 
 
 .gif {
-  width: 95%;
+  width: 80%;
+  height: auto;
   padding: 6px;
   background-color: black;
 }
 
 .card {
-  width: 70%;
-  height: 70%;
-  background-color: rgb(112, 112, 112);
+  width: 80%;
+  height: 80%;
+  background-color: rgb(255, 255, 255);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -278,69 +270,174 @@ export default {
   height: 70%;
   background-image: url("../assets/textured.png");
   background-size: cover;
-  /* Adjusts the background image size to cover the entire element */
   filter: grayscale(100%);
-  /* Converts the background image to black and white */
   overflow: hidden;
-  /* Prevents the background image from overflowing */
 }
 
 
 .gg-info,
 .tank-info {
-  font-size: 5rem;
-  font-weight: 400;
-  text-align: right;
+  font-weight: 500;
+  text-align: left;
   align-self: center;
 }
 
-.front-end,
-.back-end {
-  color: black;
-}
+
 
 .card-header {
-  font-size: 5rem;
+  font-size: 4rem;
   font-weight: 600;
   text-align: left;
   text-transform: uppercase;
   width: 100%;
 }
 
-.card-header-underline {
-  width: 0;
-  /* Initially set the width to 0 */
-  height: 5px;
-  /* Set the height of the underline */
-  background-color: #eeeeee;
-  /* Set the color of the underline */
+.tank,
+.gg {
+  font-size: 1.5rem;
+  text-align: start;
+  align-items: center;
+  padding-left: 0.4rem;
 }
 
-.box-works-left {
-  background-color: yellow;
-}
 
+
+.box-works-left,
 .box-works-right {
-  background-color: pink;
+  display: flex;
+  height: 100%;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
 }
 
-.list {
-  font-size: 0.5em;
-  text-align: justify;
+.box-works-right.grid,
+.box-works-left.grid
+{
+  align-content: center;
+  align-items: stretch;
+  flex-wrap: wrap; 
+  overflow: hidden;
 }
 
-.frontend-list  {
+.letter {
+  text-align: center;
+  color: black;
+  font-size: 10vmax;
+  font-weight: 200;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2px 6px;
+  font-family: "Rubik Mono One"
+}
+
+.box-works-left.grid .letter,
+.box-works-right.grid .letter {
+  flex-basis: 49%;
+}
+
+
+.m {
+  background: #355070;
+}
+
+.y {
+  background: #6d597a;
+}
+
+.w {
+  background: #b56576;
+}
+
+.o {
+  background: #e56b6f;
+}
+
+.r {
+  background: #eaac8b;
+}
+
+.k {
+  background: #6d597a;
+}  
+
+.s {
+  background:#b56576;
+}
+
+.box {
+  width: 100%;
+  height: 100vh;
   display: flex;
   justify-content: center;
+  align-items: center;
+  background-color: rgb(255, 255, 255);
+}
+
+
+.front-end {
   align-items: end;
-  font-size: 5rem;
 }
 
-.backend-list { 
+.frontend-list,
+.backend-list {
+  font-size: 2.5rem;
+  font-weight: 800;
+  text-align: center;
+  width: 90%;
+  margin: 0 auto;
+  overflow: hidden;
+  color: teal
+}
+
+.gg {
+  color: white;
+}
+
+.external-links {
   font-size: 3rem;
-}
-.list-item {
-  list-style: none;
+  display: flex;
+  flex-direction: column;
 }
 
+.ex-links {
+  text-decoration: none;
+  color: white;
+  transition: transform 0.3s ease;
+  line-height: 80%;
+}
+
+.ex-links:hover {
+  animation: cameraEffect 2.5s ease-in-out infinite;
+  scale: 1.05
+}
+
+@keyframes cameraEffect {
+  0% {
+    transform: translateX(12px) scale(1.1);
+  }
+
+  25% {
+    transform: translateX(5px);
+    filter: grayscale(75%) sepia(50%);
+    color: teal;
+  }
+
+  50% {
+    transform: translateX(20px) scale(1.1);
+    filter: grayscale(50%) sepia(50%);
+    color: teal;
+  }
+
+  75% {
+    transform: translateX(-1px) rotate(1deg) scale(1.1);
+    color: teal;
+  }
+
+  100% {
+    transform: translateX(0) scale(1.1) rotate(-1deg);
+  }
+}
 </style>

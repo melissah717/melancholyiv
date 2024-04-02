@@ -23,30 +23,49 @@ export function animateElements() {
   document.querySelectorAll('.landing-paragraph').forEach((para) => {
     para.innerHTML = para.textContent.replace(/\S/g, "<span class='char'>$&</span>")
     const chars = para.querySelectorAll('.char')
-    tl.from(chars, {
+    tl.to(chars, {
       duration: 1,
-      color: 'black',
+      color: '#e56b6f',
       stagger: 0.1,
       scrollTrigger: {
         trigger: para,
         start: 'top bottom',
         end: 'bottom center',
-        scrub: true
+        scrub: 1
       }
     })
 
-
+    tl.to(".landing-paragraph", {
+      y: 100,
+      scrollTrigger: {
+        trigger: ".landing-paragraph",
+        start: "top bottom"
+      }
+    })
 
     tl.to('.landing-banner', {
-      y: 400,
+      y: 700,
       scrollTrigger: {
         trigger: '.landing-paragraph',
-        start: 'top bottom',
-        end: 'center center',
-        scrub: 2
-      }
+        start: 'top center',
+        end: 'top center',
+        scrub: 1
+      },
     })
+
+    tl.fromTo(
+      ".landing-banner",
+      { width: "0" },
+      { 
+        width: "100%", 
+        duration: 3.5,
+        scrollTrigger: {
+          trigger: ".landing-banner",
+          start: "top bottom",
+          end: "top center",
+          scrub: 1
+        }
+      }
+    );
   })
-
 }
-

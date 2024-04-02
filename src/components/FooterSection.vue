@@ -1,18 +1,19 @@
 <template>
-  <div class="footer-container">
-      <div class="text-content">
-        <a href="mailto:melissa.h717@outlook.com" class="email">melissa.h717@outlook.com</a>
-        <div class="links">
-          <div class="github">
-          <a href="https://github.com/melissah717" class="link">github</a>
-          </div>
-          <div class="github">
-          <a href="https://linkedin.com/in/melissah717" class="link">linkedin</a>
-          </div>
-          <div class="blog">
-            <a href="/" disabled class="link">blog</a></div>
+  <div class="footer-container" ref="footer">
+    <div class="text-content">
+      <a href="mailto:melissa.h717@outlook.com" class="email" @mouseenter="animateEmail" @mouseleave="resetEmail">melissa.h717@outlook.com</a>
+      <div class="links">
+        <div class="github">
+          <a href="https://github.com/melissah717" class="link" @mouseenter="animateLink($event)" @mouseleave="resetLink($event)">github</a>
+        </div>
+        <div class="linkedin">
+          <a href="https://linkedin.com/in/melissah717" class="link" @mouseenter="animateLink($event)" @mouseleave="resetLink($event)">linkedin</a>
+        </div>
+        <div class="blog">
+          <a href="/" disabled class="link" @mouseenter="animateLink($event)" @mouseleave="resetLink($event)">blog</a>
         </div>
       </div>
+    </div>
   </div>
 </template>
 
@@ -27,21 +28,62 @@ export default {
 
     onMounted(() => {
       gsap.registerPlugin(ScrollTrigger);
-
-      const tl = gsap.timeline({
-        scrollTrigger: {
-          trigger: footer.value,
-          start: "bottom bottom",
-          end: "bottom top",
-          scrub: true,
-        },
-      });
-
-      tl.to(footer.value, { y: 0 });
     });
+
+    function animateEmail(event) {
+      const email = event.target;
+      gsap.to(email, {
+        duration: 0.5,
+        backgroundColor: "#fff",
+        color: "#000", 
+        borderRadius: "0px", 
+        borderWidth: "5px", 
+        borderColor: "black",
+      });
+    }
+
+    function resetEmail(event) {
+      const email = event.target;
+      gsap.to(email, {
+        duration: 0.5,
+        backgroundColor: "transparent",
+        color: "black",
+        borderRadius: "10px",
+        borderWidth: "0px", 
+        borderColor: "transparent", 
+      });
+    }
+
+    function animateLink(event) {
+      const link = event.target;
+      gsap.to(link, {
+        duration: 0.5,
+        backgroundColor: "#fff", // Change background color to white on hover
+        color: "#000", // Change text color to black on hover
+        borderRadius: "0px", // Remove border radius on hover
+        borderWidth: "5px", // Increase border width on hover
+        borderColor: "black", // Change border color on hover
+      });
+    }
+
+    function resetLink(event) {
+      const link = event.target;
+      gsap.to(link, {
+        duration: 0.5,
+        backgroundColor: "transparent", // Change background color back to transparent on mouse leave
+        color: "black", // Change text color back to black on mouse leave
+        borderRadius: "10px", // Restore border radius on mouse leave
+        borderWidth: "0px", // Restore border width on mouse leave
+        borderColor: "transparent", // Restore border color on mouse leave
+      });
+    }
 
     return {
       footer,
+      animateEmail,
+      resetEmail,
+      animateLink,
+      resetLink
     };
   },
 };
@@ -49,22 +91,19 @@ export default {
 
 <style scoped>
 .footer-container {
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  right: 0;
   width: 100%;
-  height: 12vh; /* Adjust height as needed */
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: black;
+  background-color: rgb(255, 255, 255);
+  color: black;
 }
+
 .text-content {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  width: 80rem; /* Adjust width as needed */
+  width: 80rem;
 }
 
 .links {
@@ -72,23 +111,62 @@ export default {
 }
 
 .links > div {
-  margin-right: 10px;
+  margin-right: 20px;
 }
 
 .links > div:last-child {
   margin-right: 0; 
 }
-
-.email {
-  font-size: 4rem;
-  letter-spacing: -0.3rem;
-  color: white;
-  text-decoration: none;
-  font-weight: 700
-}
-
+.email,
 .link {
   text-decoration: none;
   font-size: 2rem;
+  color: black;
+  position: relative;
+  display: inline-block;
+  text-transform: uppercase;
+  padding: 10px 20px;
+  transition: all 0.5s ease;
+  border-radius: 10px;
+  border: 0px solid transparent;
+}
+
+.email:hover,
+.link:hover {
+  background-color: #686868;
+}
+
+.email:before,
+.email:after,
+.link:before,
+.link:after {
+  content: '';
+  position: absolute;
+  width: 50%;
+  height: 50%;
+  opacity: 0;
+  z-index: -1;
+  transition: all 0.5s ease;
+}
+
+.email:before,
+.link:before {
+  top: -1px;
+  left: -1px;
+}
+
+.email:after,
+.link:after {
+  bottom: -1px;
+  right: -1px;
+}
+
+.email:hover:before,
+.email:hover:after,
+.link:hover:before,
+.link:hover:after {
+  opacity: 1;
+  width: 100%;
+  height: 100%;
 }
 </style>
