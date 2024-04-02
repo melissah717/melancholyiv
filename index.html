@@ -7,14 +7,27 @@
     <title>melancholyIV</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cedarville+Cursive&family=Inter:wght@100..900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
-    
-  </head>
+    <link href="https://fonts.googleapis.com/css2?family=Cedarville+Cursive&family=Gothic+A1:wght@300;400;500;600;700;800&family=Inter:wght@100..900&family=M+PLUS+Rounded+1c&family=Roboto&family=Roboto+Condensed&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=PT+Sans:ital,wght@0,400;0,700;1,400;1,700&family=Rubik+Mono+One&display=swap" rel="stylesheet">
   <body>
     <div id="app"></div>
     <script type="module" src="/src/main.ts"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <svg height="0">
+      <mask id="mask-firefox">
+        <image width="150" height="64" xlink:href="../assets/textured.png" filter="url(#filter)" />
+      </mask>
+    
+      <filter id="filter">
+        <feFlood flood-color="white" />
+        <feComposite in2="SourceAlpha" operator="in" />
+      </filter>
+    </svg>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/2.1.3/TweenMax.min.js"></script>
+    
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
-    <script src="https://unpkg.com/@studio-freight/lenis@1.0.39/dist/lenis.min.js"></script> 
+    <script src="https://unpkg.com/@studio-freight/lenis@1.0.39/dist/lenis.min.js"></script>  -->
   </body>
 </html>
