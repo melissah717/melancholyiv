@@ -21,7 +21,7 @@ export function animateElements() {
   requestAnimationFrame(raf)
 
   document.querySelectorAll('.landing-paragraph').forEach((para) => {
-    para.innerHTML = para.textContent.replace(/\S/g, "<span class='char'>$&</span>")
+    para.innerHTML = para.textContent!.replace(/\S/g, "<span class='char'>$&</span>")
     const chars = para.querySelectorAll('.char')
     tl.to(chars, {
       duration: 1,

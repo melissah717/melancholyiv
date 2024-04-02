@@ -71,17 +71,17 @@ export default {
 }
 
 .spacer {
-  height: 30vh;
+  height: 20vh;
 }
 
 .landing-banner {
-  font-size: 10rem;
+  font-size: 8rem;
   font-weight: 900;
-  letter-spacing: -0.5rem;
-  width: 100%;
+  letter-spacing: -0.8rem;
+  width: 80%;
   color: black;
   text-align: center;
-  font-family: "PT Sans", sans-serif;
+  font-family: "Comfortaa", sans-serif;
   overflow: hidden;
   border-right: .05em solid #e56b6f; 
   white-space: nowrap; 
