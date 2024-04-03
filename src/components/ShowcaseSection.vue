@@ -14,7 +14,7 @@
       <div class="box tank-game">
         <div class="card">
           <img v-if="!isSmallScreen" src="../assets/cat.gif" class="gif" />
-          <h1 v-else class="heading">Game Development</h1>
+          <h1 v-else class="heading">Game Dev</h1>
         </div>
       </div>
     </div>

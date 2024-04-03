@@ -34,9 +34,9 @@ export function animateElements() {
       }
     })
 
-    if (window.innerWidth <= 768) {
+    if (window.innerWidth < 768) {
       tl.to('.landing-banner', {
-        y: 280, 
+        y: 200, 
         scrollTrigger: {
           trigger: '.landing-paragraph',
           start: 'top center',
