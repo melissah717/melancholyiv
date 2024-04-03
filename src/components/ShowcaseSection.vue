@@ -7,12 +7,14 @@
       </div>
       <div class="box guild-gaming">
         <div class="card">
-          <img src="../assets/gg.gif" class="gif" />
+          <img v-if="!isSmallScreen" src="../assets/gg.gif" class="gif" />
+          <h1 v-else class="heading">Guild Gaming</h1>
         </div>
       </div>
       <div class="box tank-game">
         <div class="card">
-          <img src="../assets/cat.gif" class="gif" />
+          <img v-if="!isSmallScreen" src="../assets/cat.gif" class="gif" />
+          <h1 v-else class="heading">Game Development</h1>
         </div>
       </div>
     </div>
@@ -64,13 +66,13 @@
         <div class="letter o">o</div>
         <div class="letter r">r</div>
         <div class="letter k">k</div>
-      </div> 
+      </div>
     </div>
   </div>
 </template>
 
 <script>
-import { onMounted } from "vue";
+import { onMounted, ref } from "vue";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { Flip } from "gsap/Flip";
@@ -80,37 +82,41 @@ gsap.registerPlugin(Flip);
 
 export default {
   setup() {
+
+    const isSmallScreen = ref(false);
     onMounted(() => {
+      if (window.innerWidth <= 768) {
+        isSmallScreen.value = true;
+      }
 
-
-      let layouts = ["final","grid"]
+      let layouts = ["final", "grid"]
       let containerLeft = document.querySelector(".box-works-left")
       console.log(containerLeft)
       let curLayout = 0;
       let containerRight = document.querySelector(".box-works-right")
 
       function nextState() {
-      const state = Flip.getState(".letter", { props: "color,backgroundColor", simple: true }); // capture current state
+        const state = Flip.getState(".letter", { props: "color,backgroundColor", simple: true }); // capture current state
 
-      containerLeft.classList.remove(layouts[curLayout]);
-      containerRight.classList.remove(layouts[curLayout]); 
-      curLayout = (curLayout + 1) % layouts.length;  
-      containerLeft.classList.add(layouts[curLayout]);   
-      containerRight.classList.add(layouts[curLayout]);   
-      Flip.from(state, { 
-        absolute: true,
-        stagger: 0.07,
-        duration: 0.5,
-        ease: "power2.inOut",
-        spin: curLayout === 0, 
-        onEnter: (elements, animation) => gsap.fromTo(elements, { opacity: 0 }, { opacity: 1, delay: animation.duration() - 0.1 }),
-        onLeave: elements => gsap.to(elements, { opacity: 0 })
-      });
+        containerLeft.classList.remove(layouts[curLayout]);
+        containerRight.classList.remove(layouts[curLayout]);
+        curLayout = (curLayout + 1) % layouts.length;
+        containerLeft.classList.add(layouts[curLayout]);
+        containerRight.classList.add(layouts[curLayout]);
+        Flip.from(state, {
+          absolute: true,
+          stagger: 0.07,
+          duration: 0.5,
+          ease: "power2.inOut",
+          spin: curLayout === 0,
+          onEnter: (elements, animation) => gsap.fromTo(elements, { opacity: 0 }, { opacity: 1, delay: animation.duration() - 0.1 }),
+          onLeave: elements => gsap.to(elements, { opacity: 0 })
+        });
 
-      gsap.delayedCall(1.5, nextState);
-    }
+        gsap.delayedCall(1.5, nextState);
+      }
 
-    gsap.delayedCall(1, nextState);
+      gsap.delayedCall(1, nextState);
 
       document.querySelectorAll('.frontend-list p').forEach((para) => {
         animateText(para);
@@ -175,7 +181,7 @@ export default {
       });
     }
 
-   
+    return { isSmallScreen };
   }
 }
 </script>
@@ -313,11 +319,10 @@ export default {
 }
 
 .box-works-right.grid,
-.box-works-left.grid
-{
+.box-works-left.grid {
   align-content: center;
   align-items: stretch;
-  flex-wrap: wrap; 
+  flex-wrap: wrap;
   overflow: hidden;
 }
 
@@ -362,10 +367,10 @@ export default {
 
 .k {
   background: #6d597a;
-}  
+}
 
 .s {
-  background:#b56576;
+  background: #b56576;
 }
 
 .box {
@@ -444,20 +449,16 @@ export default {
 
 @media only screen and (max-width: 768px) {
   .letter {
-    font-size: 3rem; 
+    font-size: 3rem;
 
     border-radius: 5px;
     align-items: end;
     display: flex;
   }
 
-  .vertical-container {
-    min-height: calc(100vh - 50px);
-    display: flex;
-  }
 
   .box {
-    height: 50vh; /* Adjust height to be one-quarter of the viewport height */
+    height: 30vh;
   }
 
   .info-card {
@@ -465,23 +466,34 @@ export default {
     width: 100%;
   }
 
-  .tank, .gg {
+  .tank,
+  .gg {
     font-size: 1rem;
-    text-align: center;
+    text-align: left;
   }
 
   .card-header {
-    font-size: 1.5rem;
-    text-align: center;
+    display: none;
   }
 
-  .ex-links {
-    width: 90%;
+  .external-links {
     font-size: 1rem;
     display: flex;
-    align-items: center;
-    justify-content: flex-end;
-    text-align: center;
+    align-items: start;
+    padding: 0.5rem;
+    justify-content: flex-start;
+  }
+
+  .box {
+    height: 30vh;
+  }
+
+  h1 {
+    color: black;
+    font-family: "Comfortaa", sans-serif;
+    font-weight: 800;
+    font-size: 2rem;
+    text-align: right;
   }
 }
 </style>

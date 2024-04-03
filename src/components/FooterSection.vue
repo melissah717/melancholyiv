@@ -62,10 +62,10 @@ export default {
         const link = event.target;
         gsap.to(link, {
           duration: 0.5,
-          backgroundColor: "#fff", // Change background color to white on hover
-          color: "#000", // Change text color to black on hover
-          borderWidth: "3px", // Increase border width on hover
-          borderColor: "black", // Change border color on hover
+          backgroundColor: "#fff",
+          color: "#000",
+          borderWidth: "3px",
+          borderColor: "black",
         });
       }
     }
@@ -73,11 +73,11 @@ export default {
       const link = event.target;
       gsap.to(link, {
         duration: 0.5,
-        backgroundColor: "transparent", // Change background color back to transparent on mouse leave
-        color: "black", // Change text color back to black on mouse leave
-        borderRadius: "10px", // Restore border radius on mouse leave
-        borderWidth: "0px", // Restore border width on mouse leave
-        borderColor: "transparent", // Restore border color on mouse leave
+        backgroundColor: "transparent",
+        color: "black",
+        borderRadius: "10px",
+        borderWidth: "0px",
+        borderColor: "transparent",
       });
     }
 
@@ -181,7 +181,6 @@ export default {
 
   .text-content {
     width: 100%;
-    /* Occupy full width */
     display: flex;
     flex-direction: column;
   }

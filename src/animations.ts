@@ -37,7 +37,7 @@ export function animateElements() {
 
     if (window.innerWidth <= 768) {
       tl.to('.landing-banner', {
-        y: 300, 
+        y: 280, 
         scrollTrigger: {
           trigger: '.landing-paragraph',
           start: 'top center',
@@ -46,13 +46,6 @@ export function animateElements() {
         },
       })
     } else {
-      tl.to(".landing-paragraph", {
-        y: 100,
-        scrollTrigger: {
-          trigger: ".landing-banner",
-          start: "bottom top"
-        }
-      })
 
       tl.to('.landing-banner', {
         y: 700,
