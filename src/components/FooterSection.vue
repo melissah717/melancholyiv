@@ -174,6 +174,18 @@ export default {
   height: 100%;
 }
 
+@media only screen and (max-width: 992px) {
+  .text-content {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  }
+
+  .landing-paragraph {
+    font-size: 1.5rem;
+  }
+}
+
 @media only screen and (max-width: 768px) {
   .footer-container {
     height: 50vh;

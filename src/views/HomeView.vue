@@ -61,13 +61,13 @@ export default {
   flex-direction: column;
   width: 100%;
   color: rgb(10, 3, 3);
-  height: 160vh;
+  height: 180vh;
 }
 
 .header {
   width: 100%;
   background-color: #ffffff;
-  height: 90vh;
+  height: 100vh;
 }
 
 .spacer {
@@ -116,9 +116,21 @@ export default {
   align-items: center;
 }
 
+@media only screen and (max-width: 992px) {
+  .landing-banner {
+  font-size: 3rem;
+  }
+
+  .landing-paragraph {
+    font-size: 1.5rem;
+  }
+}
+
+
 @media only screen and (max-width: 768px) {
   .header {
     height: 40vh;
+    width: 100%;
   }
 
   .container {
@@ -126,7 +138,7 @@ export default {
   }
 
   .landing-banner {
-    font-size: 2.5rem; 
+    font-size: 2.3rem; 
   }
 
   .landing-paragraph {

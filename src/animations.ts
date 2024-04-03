@@ -30,7 +30,6 @@ export function animateElements() {
       scrollTrigger: {
         trigger: para,
         start: 'top center',
-        // end: 'bottom center',
         scrub: 1
       }
     })
@@ -48,7 +47,7 @@ export function animateElements() {
     } else {
 
       tl.to('.landing-banner', {
-        y: 700,
+        y: 650,
         scrollTrigger: {
           trigger: '.landing-paragraph',
           start: 'top center',

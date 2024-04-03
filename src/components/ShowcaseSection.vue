@@ -23,7 +23,7 @@
         <div class="info-card">
           <div class="text-card">
             <div class="card-header">
-              Game Development
+              Game Dev
             </div>
             <div class="tank" ref="tank">
               <p>java</p>
@@ -272,8 +272,8 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 70%;
-  height: 70%;
+  width: 80%;
+  height: 80%;
   background-image: url("../assets/textured.png");
   background-size: cover;
   filter: grayscale(100%);
@@ -484,6 +484,9 @@ export default {
     justify-content: flex-start;
   }
 
+  .final {
+    height: 90%;
+  }
   .box {
     height: 30vh;
   }
