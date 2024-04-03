@@ -1,5 +1,5 @@
 <template>
-  <div ref="cursor" class="cursor"></div>
+  <div v-if="!isTouchDevice()" ref="cursor" class="cursor"></div>
 </template>
 
 <script>
@@ -18,23 +18,23 @@ export default {
     });
 
     const handleMouseMove = (e) => {
-  gsap.to(cursor.value, {
-    x: e.clientX,
-    y: e.clientY,
-    duration: 0.5,
-    ease: "power3.out",
-    delay: 0.1,
-  });
+      gsap.to(cursor.value, {
+        x: e.clientX,
+        y: e.clientY,
+        duration: 0.5,
+        ease: "power3.out",
+        delay: 0.1,
+      });
 
-  const cursorTrail = document.createElement("div");
-  cursorTrail.classList.add("cursor-trail");
-  cursorTrail.style.left = e.clientX + "px";
-  cursorTrail.style.top = e.clientY + "px";
-  document.body.appendChild(cursorTrail);
-  setTimeout(() => {
-    cursorTrail.remove();
-  }, 300);
-};
+      const cursorTrail = document.createElement("div");
+      cursorTrail.classList.add("cursor-trail");
+      cursorTrail.style.left = e.clientX + "px";
+      cursorTrail.style.top = e.clientY + "px";
+      document.body.appendChild(cursorTrail);
+      setTimeout(() => {
+        cursorTrail.remove();
+      }, 300);
+    };
 
     const isTouchDevice = () => {
       return "ontouchstart" in window || navigator.maxTouchPoints > 0;
@@ -42,6 +42,7 @@ export default {
 
     return {
       cursor,
+      isTouchDevice,
     };
   },
 };
@@ -54,9 +55,8 @@ export default {
   left: 0;
   width: 15px;
   height: 15px;
-  background-color: #6d597a;
+  background-color: #e56b6f;
   border-radius: 50%;
   z-index: 999;
 }
-
 </style>
