@@ -1,13 +1,16 @@
 <template>
   <div class="footer-container" ref="footer">
     <div class="text-content">
-      <a href="mailto:melissa.h717@outlook.com" class="email" @mouseenter="animateEmail" @mouseleave="resetEmail">melissa.h717@outlook.com</a>
+      <a href="mailto:melissa.h717@outlook.com" class="email" @mouseenter="animateEmail"
+        @mouseleave="resetEmail">melissa.h717@outlook.com</a>
       <div class="links">
         <div class="github">
-          <a href="https://github.com/melissah717" class="link" @mouseenter="animateLink($event)" @mouseleave="resetLink($event)">github</a>
+          <a href="https://github.com/melissah717" class="link" @mouseenter="animateLink($event)"
+            @mouseleave="resetLink($event)">github</a>
         </div>
         <div class="linkedin">
-          <a href="https://linkedin.com/in/melissah717" class="link" @mouseenter="animateLink($event)" @mouseleave="resetLink($event)">linkedin</a>
+          <a href="https://linkedin.com/in/melissah717" class="link" @mouseenter="animateLink($event)"
+            @mouseleave="resetLink($event)">linkedin</a>
         </div>
         <div class="blog">
           <a href="/" disabled class="link" @mouseenter="animateLink($event)" @mouseleave="resetLink($event)">blog</a>
@@ -35,9 +38,9 @@ export default {
       gsap.to(email, {
         duration: 0.5,
         backgroundColor: "#fff",
-        color: "#000", 
-        borderRadius: "0px", 
-        borderWidth: "5px", 
+        color: "#000",
+        borderRadius: "0px",
+        borderWidth: "5px",
         borderColor: "black",
       });
     }
@@ -49,23 +52,23 @@ export default {
         backgroundColor: "transparent",
         color: "black",
         borderRadius: "10px",
-        borderWidth: "0px", 
-        borderColor: "transparent", 
+        borderWidth: "0px",
+        borderColor: "transparent",
       });
     }
 
     function animateLink(event) {
-      const link = event.target;
-      gsap.to(link, {
-        duration: 0.5,
-        backgroundColor: "#fff", // Change background color to white on hover
-        color: "#000", // Change text color to black on hover
-        borderRadius: "0px", // Remove border radius on hover
-        borderWidth: "5px", // Increase border width on hover
-        borderColor: "black", // Change border color on hover
-      });
+      if (window.innerWidth > 768) {
+        const link = event.target;
+        gsap.to(link, {
+          duration: 0.5,
+          backgroundColor: "#fff", // Change background color to white on hover
+          color: "#000", // Change text color to black on hover
+          borderWidth: "3px", // Increase border width on hover
+          borderColor: "black", // Change border color on hover
+        });
+      }
     }
-
     function resetLink(event) {
       const link = event.target;
       gsap.to(link, {
@@ -110,13 +113,14 @@ export default {
   display: flex;
 }
 
-.links > div {
+.links>div {
   margin-right: 20px;
 }
 
-.links > div:last-child {
-  margin-right: 0; 
+.links>div:last-child {
+  margin-right: 0;
 }
+
 .email,
 .link {
   text-decoration: none;
@@ -168,5 +172,47 @@ export default {
   opacity: 1;
   width: 100%;
   height: 100%;
+}
+
+@media only screen and (max-width: 768px) {
+  .footer-container {
+    height: 50vh;
+  }
+
+  .text-content {
+    width: 100%;
+    /* Occupy full width */
+    display: flex;
+    flex-direction: column;
+  }
+
+
+  .links>div {
+    margin-right: 0;
+    margin-bottom: 10px;
+  }
+
+  .email {
+    font-size: 1.5rem;
+  }
+
+  .link {
+    width: 100%;
+    text-align: left;
+    font-size: 1rem;
+  }
+
+  .email:hover,
+  .link:hover {
+    background-color: transparent;
+    color: black;
+  }
+
+  .email:before,
+  .email:after,
+  .link:before,
+  .link:after {
+    opacity: 0;
+  }
 }
 </style>

@@ -61,7 +61,7 @@ export default {
   flex-direction: column;
   width: 100%;
   color: rgb(10, 3, 3);
-  height: 180vh;
+  height: 160vh;
 }
 
 .header {
@@ -114,5 +114,24 @@ export default {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+}
+
+@media only screen and (max-width: 768px) {
+  .header {
+    height: 40vh;
+  }
+
+  .container {
+    height: 90vh;
+  }
+
+  .landing-banner {
+    font-size: 2.5rem; 
+  }
+
+  .landing-paragraph {
+    font-size: 1.2em; 
+    width: 80%;
+  }
 }
 </style>

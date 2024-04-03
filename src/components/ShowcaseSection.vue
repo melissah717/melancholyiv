@@ -330,7 +330,8 @@ export default {
   align-items: center;
   justify-content: center;
   padding: 2px 6px;
-  font-family: "Rubik Mono One"
+  font-family: "Rubik Mono One";
+  box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
 }
 
 .box-works-left.grid .letter,
@@ -438,6 +439,49 @@ export default {
 
   100% {
     transform: translateX(0) scale(1.1) rotate(-1deg);
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  .letter {
+    font-size: 3rem; 
+
+    border-radius: 5px;
+    align-items: end;
+    display: flex;
+  }
+
+  .vertical-container {
+    min-height: calc(100vh - 50px);
+    display: flex;
+  }
+
+  .box {
+    height: 50vh; /* Adjust height to be one-quarter of the viewport height */
+  }
+
+  .info-card {
+    height: 40vh;
+    width: 100%;
+  }
+
+  .tank, .gg {
+    font-size: 1rem;
+    text-align: center;
+  }
+
+  .card-header {
+    font-size: 1.5rem;
+    text-align: center;
+  }
+
+  .ex-links {
+    width: 90%;
+    font-size: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    text-align: center;
   }
 }
 </style>

@@ -29,43 +29,55 @@ export function animateElements() {
       stagger: 0.1,
       scrollTrigger: {
         trigger: para,
-        start: 'top bottom',
-        end: 'bottom center',
-        scrub: 1
-      }
-    })
-
-    tl.to(".landing-paragraph", {
-      y: 100,
-      scrollTrigger: {
-        trigger: ".landing-paragraph",
-        start: "top bottom"
-      }
-    })
-
-    tl.to('.landing-banner', {
-      y: 700,
-      scrollTrigger: {
-        trigger: '.landing-paragraph',
         start: 'top center',
-        end: 'top center',
+        // end: 'bottom center',
         scrub: 1
-      },
+      }
     })
 
-    tl.fromTo(
-      ".landing-banner",
-      { width: "0" },
-      { 
-        width: "100%", 
-        duration: 3.5,
+    if (window.innerWidth <= 768) {
+      tl.to('.landing-banner', {
+        y: 300, 
+        scrollTrigger: {
+          trigger: '.landing-paragraph',
+          start: 'top center',
+          end: 'top center',
+          scrub: 1
+        },
+      })
+    } else {
+      tl.to(".landing-paragraph", {
+        y: 100,
         scrollTrigger: {
           trigger: ".landing-banner",
-          start: "top bottom",
-          end: "top center",
-          scrub: 1
+          start: "bottom top"
         }
-      }
-    );
+      })
+
+      tl.to('.landing-banner', {
+        y: 700,
+        scrollTrigger: {
+          trigger: '.landing-paragraph',
+          start: 'top center',
+          end: 'top center',
+          scrub: 1
+        },
+      })
+
+      tl.fromTo(
+        ".landing-banner",
+        { width: "0" },
+        { 
+          width: "100%", 
+          duration: 3.5,
+          scrollTrigger: {
+            trigger: ".landing-banner",
+            start: "top bottom",
+            end: "top center",
+            scrub: 1
+          }
+        }
+      );
+    }
   })
 }
