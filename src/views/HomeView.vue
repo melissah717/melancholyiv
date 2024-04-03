@@ -138,7 +138,7 @@ export default {
   }
 
   .landing-banner {
-    font-size: 2.3rem; 
+    font-size: 2rem; 
   }
 
   .landing-paragraph {
