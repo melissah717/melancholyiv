@@ -41,7 +41,7 @@ export default {
       </div>
       <div class="landing-paragraph-container">
         <p class="landing-paragraph">
-          I'm a full stack developer based in San Francisco. My strengths are efficiency, communication, and
+          I'm a full stack developer with over 4 years of experience based in San Francisco. My strengths are efficiency, communication, and
           flexibility. Building something great is both a dynamic and cummulative process that requires iteration and
           reflection. When I'm not coding, you'll probably find me around the house or store trying to DIWHY something.
           I find inspiration from beautiful things, repulsive things, and everything in between.
