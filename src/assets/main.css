@@ -1,15 +1,16 @@
-#app {
-  background-color: white;
-  color: white;
+/* #app {
   display: flex;
   flex-direction: column;
-  font-family: "Inter", sans-serif;
-}
+  font-famc ily: "Inter", sans-serif;
+} */
 
 body {
-  background: white;
-  overflow: auto;
-  width: 99%;
+  background: #acc6aa;
+  /* min-height: 100vh; */
   margin: 0;
+  box-sizing: border-box;
+  overscroll-behavior: none;
+  display: flex;
+  flex-direction: column;
 }
- 
+
