@@ -363,16 +363,21 @@ export default {
       <div class="content">
         <a :href="currentSubheader.url" class="subheader">{{ currentSubheader.text }}<i class="fas fa-link"></i></a>
         <figure class="img-cont">
-          <img class="image" src="../assets/me.jpg" style="p]"/>
+          <img class="image" src="../assets/me.jpg" />
           <img class="image" src="../assets/rem.png" />
           <img class="image" src="../assets/admin.png" />
           <img class="image" src="../assets/gg.png" />
         </figure>
       </div>
     </section>
+
   </div>
 
 </div>
+<div class="footer">
+        <div>iteration iv of developer portfolio</div>
+        <div>last updated: april 2024</div>
+      </div>
 </template>
 
 
@@ -756,4 +761,20 @@ li {
   font-family: "Quicksand", sans-serif;
 }
 
+.footer {
+  position: fixed;
+  display: flex;
+  align-items: justify;
+  justify-content: space-between;
+  font-family: "Quicksand", sans-serif;
+  letter-spacing: 0.5em;
+  height: 5em;
+  bottom: 0;
+  left: 0;
+  width: 95%;
+  z-index: 999;
+  font-size: 1em;
+  color:#f2f1fc;
+  opacity: 0.8;
+}
 </style>
