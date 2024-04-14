@@ -222,9 +222,9 @@ export default {
       </div>
 
       <p class="paragraph">
-        As full stack developer with over 4 years of experience based in San Francisco, my strengths are
+        As full stack developer with over 4 years of experience, my strengths are
         efficiency, communication, and
-        flexibility. Building something great is both a dynamic and cummulative process that requires iteration and
+        flexibility. Currently based in San Francisco. Building something great is both a dynamic and cummulative process that requires iteration and
         reflection. When I'm not coding, you'll probably find me around the house or store trying to DIWHY something.
         I find inspiration from beautiful things, repulsive things, and everything in between.
       </p>
