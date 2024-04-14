@@ -349,7 +349,7 @@ export default {
               <figure class="img-cont">
                 <div class="img">
                   <ul>
-
+                    melissa.h717@outlook.com
                   </ul>
                 </div>
               </figure>
@@ -633,13 +633,14 @@ ul {
   justify-content: space-evenly;
   font-size: 1.5em;
   border-radius: 10px;
+  font-family: "Quicksand", sans-serif;
 }
 
 
 li {
   list-style: none;
   padding-right: 1em;
-  font-family: "Quicksand", sans-serif;
+
   z-index: 999;
 }
 
@@ -674,7 +675,7 @@ li {
 }
 
 
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 431px) {
   .panel .content {
     overflow: none;
   }
@@ -683,26 +684,27 @@ li {
   }
 
   .panel .img {
-    font-size: 0.7rem;
+    font-size: 0.5rem;
     margin-top: 1em;
+    margin-right: 1em;
+    width: 60%;
     border: 1px solid white; /* Smaller font size for mobile */
   }
 
   .overlay .img-cont {
     margin-right: 1rem;
-    width: 70%;
+    width: 90%;
   }
 
   .paragraph {
-    font-size: 1.5rem;
+    font-size:22px;
     width: 100%;
+    margin: 10px;
   }
 
-  .banner {
-    padding: 0.5em;
-    font-size: 1.5rem;
+  .home .banner {
+    font-size: 2em;
   }
-
 
 }
 
