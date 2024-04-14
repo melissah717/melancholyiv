@@ -490,15 +490,14 @@ h1 {
   font-family: "DM Serif Display", serif;
   font-weight: 400;
   font-style: italic;
-  font-size: clamp(5rem, 15vw, 15rem);
-  font-weight: 600;
+  font-size: clamp(2rem, 10vw, 10rem);
   font-variation-settings: "wdth" var(--width);
   margin: 0;
   padding: 0;
   color: #f2f1fc;
   z-index: 999;
   mix-blend-mode: difference;
-  grid-area: 2 / 2 / 3 / 10;
+  grid-area: 2 / 1 / 2 / 10;
   align-self: end;
 }
 
@@ -706,8 +705,8 @@ li {
     font-size: 2em;
   }
 
-  .panel .heading {
-    font-size:2em
+  h2 {
+    color: white;
   }
 }
 
@@ -741,9 +740,13 @@ li {
   .home .banner {
     font-size: 2em;
   }
+}
 
+  @media screen and (max-width: 768px) {
   .panel .heading {
-    font-size:4em
+    font-size: 3em; /* Adjust font size to make sure it fits the screen */
+    line-height: 1.2; /* Adjust line height to prevent clipping */
+
   }
 }
 
