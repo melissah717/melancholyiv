@@ -19,57 +19,60 @@ export function animateElements() {
     requestAnimationFrame(raf)
   }
   requestAnimationFrame(raf)
+// 
 
-  document.querySelectorAll('.landing-paragraph').forEach((para) => {
+  document.querySelectorAll('.paragraph').forEach((para) => {
     para.innerHTML = para.textContent!.replace(/\S/g, "<span class='char'>$&</span>")
     const chars = para.querySelectorAll('.char')
     tl.to(chars, {
       duration: 1,
-      color: '#e56b6f',
+      color: '#77628c',
       stagger: 0.1,
       scrollTrigger: {
         trigger: para,
-        start: 'top center',
+        start: '-30% bottom',
+        markers: true,
         scrub: 1
       }
     })
+    
 
-    if (window.innerWidth < 768) {
-      tl.to('.landing-banner', {
-        y: 200, 
-        scrollTrigger: {
-          trigger: '.landing-paragraph',
-          start: 'top center',
-          end: 'top center',
-          scrub: 1
-        },
-      })
-    } else {
+    // if (window.innerWidth < 768) {
+    //   tl.to('.landing-banner', {
+    //     y: 200, 
+    //     scrollTrigger: {
+    //       trigger: '.landing-paragraph',
+    //       start: 'top center',
+    //       end: 'top center',
+    //       scrub: 1
+    //     },
+    //   })
+    // } else {
 
-      tl.to('.landing-banner', {
-        y: 650,
-        scrollTrigger: {
-          trigger: '.landing-paragraph',
-          start: 'top center',
-          end: 'top center',
-          scrub: 1
-        },
-      })
+      // tl.to('.landing-banner', {
+      //   y: 750,
+      //   scrollTrigger: {
+      //     trigger: '.landing-paragraph',
+      //     start: 'top center',
+      //     end: 'top center',
+      //     scrub: 1
+      //   },
+      // })
 
-      tl.fromTo(
-        ".landing-banner",
-        { width: "0" },
-        { 
-          width: "100%", 
-          duration: 3.5,
-          scrollTrigger: {
-            trigger: ".landing-banner",
-            start: "top bottom",
-            end: "top center",
-            scrub: 1
-          }
-        }
-      );
-    }
+    //   tl.fromTo(
+    //     ".landing-banner",
+    //     { width: "0" },
+    //     { 
+    //       width: "100%", 
+    //       duration: 3.5,
+    //       scrollTrigger: {
+    //         trigger: ".landing-banner",
+    //         start: "top bottom",
+    //         end: "top center",
+    //         scrub: 1
+    //       }
+    //     }
+    //   );
+    //}
   })
 }

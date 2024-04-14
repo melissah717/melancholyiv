@@ -1,15 +1,15 @@
-#app {
-  background-color: white;
-  color: white;
+/* #app {
   display: flex;
   flex-direction: column;
-  font-family: "Inter", sans-serif;
-}
+  font-famc ily: "Inter", sans-serif;
+} */
 
-body {
-  background: white;
-  overflow: auto;
-  width: 99%;
+body, html {
+  background: #2f3e46;
+  /* min-height: 100vh; */
   margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  overscroll-behavior: none;
+  height: 100%;
 }
- 
