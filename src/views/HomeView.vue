@@ -675,7 +675,7 @@ li {
 }
 
 
-@media screen and (max-width: 431px) {
+@media screen and (max-width: 400px) {
   .panel .content {
     overflow: none;
   }
@@ -706,6 +706,45 @@ li {
     font-size: 2em;
   }
 
+  .panel .heading {
+    font-size:2em
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .panel .content {
+    overflow: none;
+  }
+  .overlay .subheader {
+    display: none; /* Hide subheaders on small screens */
+  }
+
+  .panel .img {
+    font-size: 0.4em;
+    margin-top: 2em;
+    margin-right: 1em;
+    width: 60%;
+    border: 1px solid white; /* Smaller font size for mobile */
+  }
+
+  .overlay .img-cont {
+    margin-right: 1rem;
+    width: 90%;
+  }
+
+  .paragraph {
+    font-size:22px;
+    width: 100%;
+    margin: 10px;
+  }
+
+  .home .banner {
+    font-size: 2em;
+  }
+
+  .panel .heading {
+    font-size:4em
+  }
 }
 
 
