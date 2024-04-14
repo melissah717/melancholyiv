@@ -4,11 +4,33 @@ import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { Observer } from "gsap/Observer";
 import { TextPlugin } from "gsap/TextPlugin";
-import FooterSection from "@/components/FooterSection.vue";
 
 export default {
   setup() {
+    const subheaders = ref([
+        {text: "guild gaming", url: "https://guildgaming.gg"}, 
+        {text:"admin dashboard", url: "https://gist.github.com/melissah717/public"},
+        {text:"redeye media", url: "https://redeyemedia.design"},
+        {text:"melissa.h717@outlook.com", url: "mailto:melissa.h717@outlook.com"}
+      ])
+      const current = ref(0);
+      const currentSubheader = ref(subheaders.value[0])
     onMounted(() => {
+
+      document.querySelectorAll('.paragraph').forEach(para => {
+        para.innerHTML = para.textContent.replace(/\S/g, "<span class='char'>$&</span>");
+        const chars = para.querySelectorAll('.char');
+        gsap.to(chars, {
+          duration: 1,
+          color: 'white',
+          stagger: 0.1,
+          scrollTrigger: {
+            trigger: para,
+            start: 'top bottom',
+            scrub: 1
+          }
+        });
+      });
 
       gsap.registerPlugin(ScrollTrigger, Observer, TextPlugin)
       const sections = gsap.utils.toArray(".panel")
@@ -16,7 +38,6 @@ export default {
       const slideImages = gsap.utils.toArray(".panel .img");
       const outerWrappers = gsap.utils.toArray(".panel .outer");
       const innerWrappers = gsap.utils.toArray(".panel .inner");
-      const subheader = document.querySelector(".subheader");
       const wrap = gsap.utils.wrap(0, sections.length);
       let animating;
       let currentIndex = 0;
@@ -26,7 +47,32 @@ export default {
       gsap.set(".panel:nth-of-type(1) .outer", { xPercent: 0 });
       gsap.set(".panel:nth-of-type(1) .inner", { xPercent: 0 });
 
+      function updateSubheader(index) {
+        current.value = index;
+        currentSubheader.value = subheaders.value[current.value];
+      }
       function gotoSection(index, direction) {
+
+        if (!animating) {
+          animating = true;
+
+          index = index % subheaders.value.length;
+          updateSubheader(index);  
+
+          // Animation code here, setup your GSAP timeline
+          let tl = gsap.timeline({
+            defaults: { duration: 1, ease: "expo.inOut" },
+            onComplete: () => {
+              animating = false;
+            }
+          });
+
+          // Example of animation, adapt it to your needs
+          tl.fromTo(sections[current.value], { opacity: 0 }, { opacity: 1 });
+          // You should include your actual transition code here
+
+          current.value = index;  // Update the current index after animation
+        }
         animating = true;
         index = wrap(index);
 
@@ -47,7 +93,7 @@ export default {
         gsap.set([sections[index], images[currentIndex]], { zIndex: 2, autoAlpha: 1 });
 
         tl
-          .set(subheader, { text: index + 1 }, 0.32)
+          // .set(subheader, { text: index + 1 }, 0.32)
           .fromTo(
             outerWrappers[index],
             {
@@ -112,26 +158,24 @@ export default {
             { scale: 1 },
             0
           )
-          .timeScale(0.8);
+          .timeScale(0.9);
 
         currentIndex = index;
       }
 
       Observer.create({
         type: "wheel,touch,pointer",
-        preventDefault: true,
+        preventDefault: false,
         wheelSpeed: -1,
         onUp: () => {
-          console.log("down");
           if (animating) return;
           gotoSection(currentIndex + 1, +1);
         },
         onDown: () => {
-          console.log("up");
           if (animating) return;
           gotoSection(currentIndex - 1, -1);
         },
-        tolerance: 10
+        tolerance: 15
       });
 
       document.addEventListener("keydown", logKey);
@@ -154,7 +198,10 @@ export default {
 
     });
 
+    
+
     return {
+      currentSubheader
     };
   },
   components: {
@@ -163,15 +210,25 @@ export default {
 </script>
 
 <template>
+  <div class="container">
   <div class="vertical-scroll">
     <section class="home">
+      <div class="banner">Hi I'm Melissa</div>
+      <div class="boxes">
+        <div class="box1"></div>
+      <div class="box2"></div>
+      <div class="box3"></div>
+      <div class="box4"></div>
+      </div>
+
       <p class="paragraph">
-        I'm a full stack developer with over 4 years of experience based in San Francisco. My strengths are
+        As full stack developer with over 4 years of experience based in San Francisco, my strengths are
         efficiency, communication, and
         flexibility. Building something great is both a dynamic and cummulative process that requires iteration and
         reflection. When I'm not coding, you'll probably find me around the house or store trying to DIWHY something.
         I find inspiration from beautiful things, repulsive things, and everything in between.
       </p>
+
     </section>
   </div>
 
@@ -184,12 +241,27 @@ export default {
               <h2 class="heading">web dev</h2>
               <figure class="img-cont">
                 <div class="img">
-        I'm a full stack developer with over 4 years of experience based in San Francisco. My strengths are
-        efficiency, communication, and
-        flexibility. Building something great is both a dynamic and cummulative process that requires iteration and
-        reflection. When I'm not coding, you'll probably find me around the house or store trying to DIWHY something.
-        I find inspiration from beautiful things, repulsive things, and everything in between.
-</div>
+                  <ul>
+                    <li>
+                      react
+                    </li>
+                    <li>
+                      typescript
+                    </li>
+                    <li>
+                      flask
+                    </li>
+                    <li>
+                      python
+                    </li>
+                    <li>
+                      pytest/jest
+                    </li>
+                    <li>
+                      mapboxGL
+                    </li>
+                  </ul>
+                </div>
               </figure>
             </div>
           </div>
@@ -206,12 +278,27 @@ export default {
               <h2 class="heading">api design</h2>
               <figure class="img-cont">
                 <div class="img">
-        I'm a full stack developer with over 4 years of experience based in San Francisco. My strengths are
-        efficiency, communication, and
-        flexibility. Building something great is both a dynamic and cummulative process that requires iteration and
-        reflection. When I'm not coding, you'll probably find me around the house or store trying to DIWHY something.
-        I find inspiration from beautiful things, repulsive things, and everything in between.
-</div>
+                  <ul>
+                    <li>
+                      auth0
+                    </li>
+                    <li>
+                      redux
+                    </li>
+                    <li>
+                      postgres
+                    </li>
+                    <li>
+                      OpenAPI
+                    </li>
+                    <li>
+                      nextJS
+                    </li>
+                    <li>
+                      ChakraUI
+                    </li>
+                  </ul>
+                </div>
               </figure>
             </div>
           </div>
@@ -225,15 +312,27 @@ export default {
         <div class="inner">
           <div class="content">
             <div class="container">
-              <h2 class="heading">redeye media</h2>
+              <h2 class="heading">personal</h2>
               <figure class="img-cont">
                 <div class="img">
-        I'm a full stack developer with over 4 years of experience based in San Francisco. My strengths are
-        efficiency, communication, and
-        flexibility. Building something great is both a dynamic and cummulative process that requires iteration and
-        reflection. When I'm not coding, you'll probably find me around the house or store trying to DIWHY something.
-        I find inspiration from beautiful things, repulsive things, and everything in between.
-</div>
+                  <ul>
+                    <li>
+                      vue
+                    </li>
+                    <li>
+                      GSAP
+                    </li>
+                    <li>
+                      threeJS
+                    </li>
+                    <li>
+                      CMS
+                    </li>
+                    <li>
+                      figma
+                    </li>
+                  </ul>
+                </div>
               </figure>
             </div>
           </div>
@@ -246,15 +345,13 @@ export default {
         <div class="inner">
           <div class="content">
             <div class="container">
-              <h2 class="heading">contact</h2>
+              <h2 class="heading">contact me</h2>
               <figure class="img-cont">
                 <div class="img">
-        I'm a full stack developer with over 4 years of experience based in San Francisco. My strengths are
-        efficiency, communication, and
-        flexibility. Building something great is both a dynamic and cummulative process that requires iteration and
-        reflection. When I'm not coding, you'll probably find me around the house or store trying to DIWHY something.
-        I find inspiration from beautiful things, repulsive things, and everything in between.
-</div>
+                  <ul>
+
+                  </ul>
+                </div>
               </figure>
             </div>
           </div>
@@ -264,38 +361,53 @@ export default {
 
     <section class="overlay">
       <div class="content">
-        <p class="subheader">about me</p>
+        <a :href="currentSubheader.url" class="subheader">{{ currentSubheader.text }}<i class="fas fa-link"></i></a>
         <figure class="img-cont">
-          <img class="image"
-            src="../assets/me.jpg"/>
-          <img class="image"
-            src="../assets/rem.png" />
-          <img class="image"
-            src="../assets/admin.png" />
-          <img class="image"
-            src="../assets/gg.png" />
+          <img class="image" src="../assets/me.jpg" style="p]"/>
+          <img class="image" src="../assets/rem.png" />
+          <img class="image" src="../assets/admin.png" />
+          <img class="image" src="../assets/gg.png" />
         </figure>
       </div>
     </section>
-
   </div>
 
+</div>
 </template>
 
 
 <style>
+
+a {
+  text-decoration: none;
+  color: white;
+  font-family: "Quicksand", sans-serif;
+  position: relative; 
+  top: 10%;
+}
+
+.container {
+  padding: 0;
+  margin: 0;
+  min-height: 100vh;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
 .vertical-scroll {
   overflow-x: hidden;
   overflow-y: hidden;
-  height: 200vh;
+  height: 180vh;
 }
 
 .horizontal {
   position: relative;
   height: 100vh;
   width: 100%;
-  /* overflow-x: hidden;
-  overflow-y: hidden; */
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
 }
 
 .horizontal .panel {
@@ -303,32 +415,28 @@ export default {
 }
 
 .home {
-  height: 200vh;
-  background: rgb(79, 79, 130);
+  height: 150vh;
+  background:#2f3e46;
   text-align: center;
-  color: white;
+  color: #84a98c;
   font-size: 3rem;
   padding: 5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
 }
 
-.blue {
-  background-color: #2c7ad2;
-  background-image: radial-gradient(circle at 47% 14%, rgba(205, 205, 205, 0.04) 0%, rgba(205, 205, 205, 0.04) 43%, transparent 43%, transparent 100%), radial-gradient(circle at 35% 12%, rgba(215, 215, 215, 0.04) 0%, rgba(215, 215, 215, 0.04) 4%, transparent 4%, transparent 100%), radial-gradient(circle at 1% 35%, rgba(24, 24, 24, 0.04) 0%, rgba(24, 24, 24, 0.04) 37%, transparent 37%, transparent 100%), radial-gradient(circle at 21% 1%, rgba(0, 0, 0, 0.04) 0%, rgba(0, 0, 0, 0.04) 26%, transparent 26%, transparent 100%), radial-gradient(circle at 23% 82%, rgba(249, 249, 249, 0.04) 0%, rgba(249, 249, 249, 0.04) 60%, transparent 60%, transparent 100%), radial-gradient(circle at 11% 54%, rgba(251, 251, 251, 0.04) 0%, rgba(251, 251, 251, 0.04) 23%, transparent 23%, transparent 100%), radial-gradient(circle at 69% 68%, rgba(234, 234, 234, 0.04) 0%, rgba(234, 234, 234, 0.04) 10%, transparent 10%, transparent 100%), linear-gradient(90deg, #2c7ad2, #1568c6);
+h1 {
+  font-size: 3rem;
+  font-family: "quicksand", sans-serif;
+  font-weight: 900;
 }
 
-.orange {
-  background-color: #e77614;
-  background-image: radial-gradient(circle at 46% 40%, rgba(228, 228, 228, 0.06) 0%, rgba(228, 228, 228, 0.06) 13%, transparent 13%, transparent 100%), radial-gradient(circle at 11% 41%, rgba(198, 198, 198, 0.06) 0%, rgba(198, 198, 198, 0.06) 19%, transparent 19%, transparent 100%), radial-gradient(circle at 52% 23%, rgba(14, 14, 14, 0.06) 0%, rgba(14, 14, 14, 0.06) 69%, transparent 69%, transparent 100%), radial-gradient(circle at 13% 85%, rgba(148, 148, 148, 0.06) 0%, rgba(148, 148, 148, 0.06) 44%, transparent 44%, transparent 100%), radial-gradient(circle at 57% 74%, rgba(232, 232, 232, 0.06) 0%, rgba(232, 232, 232, 0.06) 21%, transparent 21%, transparent 100%), radial-gradient(circle at 59% 54%, rgba(39, 39, 39, 0.06) 0%, rgba(39, 39, 39, 0.06) 49%, transparent 49%, transparent 100%), radial-gradient(circle at 98% 38%, rgba(157, 157, 157, 0.06) 0%, rgba(157, 157, 157, 0.06) 24%, transparent 24%, transparent 100%), radial-gradient(circle at 8% 6%, rgba(60, 60, 60, 0.06) 0%, rgba(60, 60, 60, 0.06) 12%, transparent 12%, transparent 100%), linear-gradient(90deg, #ff7600, #ff7600);
-}
-
-.red {
-  background-color: #c82736;
-  background-image: radial-gradient(circle at 19% 90%, rgba(190, 190, 190, 0.04) 0%, rgba(190, 190, 190, 0.04) 17%, transparent 17%, transparent 100%), radial-gradient(circle at 73% 2%, rgba(78, 78, 78, 0.04) 0%, rgba(78, 78, 78, 0.04) 94%, transparent 94%, transparent 100%), radial-gradient(circle at 45% 2%, rgba(18, 18, 18, 0.04) 0%, rgba(18, 18, 18, 0.04) 55%, transparent 55%, transparent 100%), radial-gradient(circle at 76% 60%, rgba(110, 110, 110, 0.04) 0%, rgba(110, 110, 110, 0.04) 34%, transparent 34%, transparent 100%), radial-gradient(circle at 68% 56%, rgba(246, 246, 246, 0.04) 0%, rgba(246, 246, 246, 0.04) 16%, transparent 16%, transparent 100%), radial-gradient(circle at 71% 42%, rgba(156, 156, 156, 0.04) 0%, rgba(156, 156, 156, 0.04) 47%, transparent 47%, transparent 100%), radial-gradient(circle at 46% 82%, rgba(247, 247, 247, 0.04) 0%, rgba(247, 247, 247, 0.04) 39%, transparent 39%, transparent 100%), radial-gradient(circle at 50% 47%, rgba(209, 209, 209, 0.04) 0%, rgba(209, 209, 209, 0.04) 45%, transparent 45%, transparent 100%), linear-gradient(90deg, #e53949, #cc2232);
-}
-
-.purple {
-  background-color: #8d3dae;
-  background-image: radial-gradient(circle at 47% 14%, rgba(205, 205, 205, 0.04) 0%, rgba(205, 205, 205, 0.04) 43%, transparent 43%, transparent 100%), radial-gradient(circle at 35% 12%, rgba(215, 215, 215, 0.04) 0%, rgba(215, 215, 215, 0.04) 4%, transparent 4%, transparent 100%), radial-gradient(circle at 1% 35%, rgba(24, 24, 24, 0.04) 0%, rgba(24, 24, 24, 0.04) 37%, transparent 37%, transparent 100%), radial-gradient(circle at 21% 1%, rgba(0, 0, 0, 0.04) 0%, rgba(0, 0, 0, 0.04) 26%, transparent 26%, transparent 100%), radial-gradient(circle at 23% 82%, rgba(249, 249, 249, 0.04) 0%, rgba(249, 249, 249, 0.04) 60%, transparent 60%, transparent 100%), radial-gradient(circle at 11% 54%, rgba(251, 251, 251, 0.04) 0%, rgba(251, 251, 251, 0.04) 23%, transparent 23%, transparent 100%), radial-gradient(circle at 69% 68%, rgba(234, 234, 234, 0.04) 0%, rgba(234, 234, 234, 0.04) 10%, transparent 10%, transparent 100%), linear-gradient(90deg, #8d3dae, #8d3dae);
+.paragraph {
+  width: 50%;
+  text-align: justify;
+  font-family: "Quicksand", sans-serif;
 }
 
 .panel {
@@ -340,7 +448,7 @@ export default {
   visibility: hidden;
   color: white;
   font-size: 1.4em;
-  padding: 10px;
+
 }
 
 .panel .inner,
@@ -376,12 +484,14 @@ export default {
 }
 
 .panel .heading {
-  --width: 200;
+  --width: 150;
   display: block;
   text-align: left;
-  font-family: "Bandeins Sans & Strange Variable";
+  font-family: "DM Serif Display", serif;
+  font-weight: 400;
+  font-style: italic;
   font-size: clamp(5rem, 15vw, 15rem);
-  font-weight: 900;
+  font-weight: 600;
   font-variation-settings: "wdth" var(--width);
   margin: 0;
   padding: 0;
@@ -394,6 +504,7 @@ export default {
 
 .panel .img-cont {
   margin-top: 4rem;
+  overflow: visible;
   grid-area: 2 / 1 / 7 / 8;
 }
 
@@ -407,25 +518,25 @@ export default {
   visibility: visible;
 
   .content {
-    background-color: #6d597a;
+    background-color: #84a98c;
   }
 }
 
 .panel:nth-of-type(2) {
   .content {
-    background-color: #355070;
+    background-color: #52796f;
   }
 }
 
 .panel:nth-of-type(3) {
   .content {
-    background-color: #b56576;
+    background-color: #354f52;
   }
 }
 
 .panel:nth-of-type(4) {
   .content {
-    background-color: #9a8c98;
+    background-color:  #2f3e46;
   }
 }
 
@@ -474,12 +585,18 @@ figure {
 
 
 .overlay .subheader {
-  grid-area: 3 / 10 / 4 / 10;
-  font-size: clamp(3rem, 4vw, 15rem);
+  grid-area: 3 / 10 / 4 / 12;
+  font-size: clamp(2rem, 3vw, 13rem);
   margin: 0;
   padding: 0;
-  text-align: right;
-  border-bottom: 7px white solid;
+  text-align: justify;
+  border-bottom: 4px white solid;
+  display: flex;        /* Establishes a flex container */
+  align-items: center;  /* Centers the items vertically within the container */
+  color: white;         /* Text color */
+  text-decoration: none; /* Removes underline from links */
+  gap: 8px;             /* Optional: Adds space between the text and the icon */
+  font-size: 1rem;  
 }
 
 @media screen and (min-width: 900px) {
@@ -496,11 +613,12 @@ figure {
   }
 
   .overlay .subheader {
-    grid-area: 3 / 10 / 4 / 11;
+    grid-area: 3 / 10 / 3 / 10;
+    font-size: 2em;
   }
 
   .panel .img-cont {
-    margin-top: 0;
+    margin-top: -4%;
     grid-area: 3 / 2 / 8 / 7;
   }
 
@@ -508,4 +626,90 @@ figure {
     grid-area: 1 / 1 / 4 / 10;
   }
 }
+
+ul {
+  display: flex;
+  width: 100%;
+  justify-content: space-evenly;
+  font-size: 1.5em;
+  border-radius: 10px;
+}
+
+
+li {
+  list-style: none;
+  padding-right: 1em;
+  font-family: "Quicksand", sans-serif;
+  z-index: 999;
+}
+
+.boxes {
+  display: flex;
+  flex-direction: row;
+  height: 100px;
+}
+
+.box1 {
+  height: 100px;
+  width: 100px;
+  background-color: #cad2c5;
+}
+
+.box2 {
+  height: 100px;
+  width: 100px;
+  background-color: #84a98c
+}
+
+.box3 {
+  height: 100px;
+  width: 100px;
+  background-color: #52796f;
+}
+
+.box4 {
+  height: 100px;
+  width: 100px;
+  background-color:#354f52;
+}
+
+
+@media screen and (max-width: 600px) {
+  .panel .content {
+    overflow: none;
+  }
+  .overlay .subheader {
+    display: none; /* Hide subheaders on small screens */
+  }
+
+  .panel .img {
+    font-size: 0.7rem;
+    margin-top: 1em;
+    border: 1px solid white; /* Smaller font size for mobile */
+  }
+
+  .overlay .img-cont {
+    margin-right: 1rem;
+    width: 70%;
+  }
+
+  .paragraph {
+    font-size: 1.5rem;
+    width: 100%;
+  }
+
+  .banner {
+    padding: 0.5em;
+    font-size: 1.5rem;
+  }
+
+
+}
+
+
+.banner {
+  font-size: 10rem;
+  font-family: "Quicksand", sans-serif;
+}
+
 </style>

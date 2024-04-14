@@ -30,7 +30,8 @@ export function animateElements() {
       stagger: 0.1,
       scrollTrigger: {
         trigger: para,
-        start: 'top center',
+        start: '-30% bottom',
+        markers: true,
         scrub: 1
       }
     })
